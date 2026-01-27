@@ -12,20 +12,28 @@ const input = ref(`{
 
 const indent = ref(2)
 
-const error = ref<string | null>(null)
-
-const output = computed(() => {
-  error.value = null
-  if (!input.value.trim()) return ''
+const formatResult = computed(() => {
+  const text = input.value.trim()
+  if (!text) {
+    return { output: '', error: null }
+  }
 
   try {
-    const parsed = JSON.parse(input.value)
-    return JSON.stringify(parsed, null, indent.value)
+    const parsed = JSON.parse(text)
+    return {
+      output: JSON.stringify(parsed, null, indent.value),
+      error: null
+    }
   } catch (e) {
-    error.value = e instanceof Error ? e.message : String(e)
-    return ''
+    return {
+      output: '',
+      error: e instanceof Error ? e.message : String(e)
+    }
   }
 })
+
+const output = computed(() => formatResult.value.output)
+const error = computed(() => formatResult.value.error)
 
 const copy = async () => {
   if (!output.value) return
@@ -37,7 +45,9 @@ const copy = async () => {
   <UContainer>
     <div class="mt-6 space-y-4">
       <div class="flex items-center gap-3">
-        <div class="text-sm text-muted">Indent</div>
+        <div class="text-sm text-muted">
+          Indent
+        </div>
         <USelect
           v-model="indent"
           :options="[2, 4].map(v => ({ label: String(v), value: v }))"
@@ -56,20 +66,43 @@ const copy = async () => {
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <UCard>
           <template #header>
-            <div class="font-medium">Input</div>
+            <div class="font-medium">
+              Input
+            </div>
           </template>
-          <UTextarea v-model="input" :rows="16" class="w-full" />
+          <UTextarea
+            v-model="input"
+            :rows="16"
+            class="w-full"
+          />
           <template #footer>
-            <div v-if="error" class="text-sm text-red-500">{{ error }}</div>
-            <div v-else class="text-xs text-muted">Local-only, no server request.</div>
+            <div
+              v-if="error"
+              class="text-sm text-red-500"
+            >
+              {{ error }}
+            </div>
+            <div
+              v-else
+              class="text-xs text-muted"
+            >
+              Local-only, no server request.
+            </div>
           </template>
         </UCard>
 
         <UCard>
           <template #header>
-            <div class="font-medium">Output</div>
+            <div class="font-medium">
+              Output
+            </div>
           </template>
-          <UTextarea :model-value="output" :rows="16" readonly class="w-full" />
+          <UTextarea
+            :model-value="output"
+            :rows="16"
+            readonly
+            class="w-full"
+          />
         </UCard>
       </div>
     </div>
