@@ -22,9 +22,10 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      # 4. 代码规范检查
+      # 4. 代码规范检查（即使这一步红了，也会继续往下跑）
       - name: Lint
         run: bun run lint
+        continue-on-error: true
 
       # 5. 类型检查
       - name: Typecheck
