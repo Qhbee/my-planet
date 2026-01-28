@@ -4,15 +4,15 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-const props = defineProps<{
+const { links } = defineProps<{
   links: NavigationMenuItem[]
 }>()
 
-const localizedLinks = computed<NavigationMenuItem[]>(() =>
-  props.links.map(link => ({
-    ...link, // ← 把原 link 的所有属性复制过来
-    label: typeof link.label === 'string' ? t(link.label) : link.label,
-    to: typeof link.to === 'string' ? localePath(link.to) : link.to
+const localizedLinks = computed(() =>
+  links.map(({ label, to, ...rest }) => ({
+    ...rest, // 剩余部分属性
+    label: t(label!),
+    to: localePath(to!)
   }))
 )
 </script>
