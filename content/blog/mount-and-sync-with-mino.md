@@ -2,7 +2,7 @@
 title: "MinIO 的挂载与同步（Ubuntu）"
 description: 比较了挂载与同步的概念，然后介绍 Ubuntu 下使用 MinIO 的实现挂载与同步，还介绍了利用 Rclone 工具来实现。
 date: 2025-02-14
-image: https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/14774502031348f182fae5cb287b9cd6~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgUWhiZWU=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMTc3NTAyNjE4NzUzNTE5NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1770187871&x-orig-sign=HN5Ze7moG5dhUEbGjlWwIVJn81w%3D
+image: /images/blog/minio.png
 minRead: 10
 author:
   name: Qhbee

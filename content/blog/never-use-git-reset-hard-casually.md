@@ -2,7 +2,7 @@
 title: "千万不要随便 git reset --hard"
 description: 记录一次Git操作不当造成的事故，“无知时诋毁IDEA，懂事时理解IDEA，成熟时追随IDEA。”
 date: 2025-02-10
-image: 
+image: /images/blog/git-lost-my-code-but-jetbrains-saved-it.png
 minRead: 5
 author:
   name: Qhbee

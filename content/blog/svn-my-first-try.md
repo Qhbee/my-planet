@@ -2,7 +2,7 @@
 title: "我的 SVN 初体验"
 description: 《这是什么 VCS 啊？感觉不如 Git 》之前版本控制用的都是 Git，今天去新公司看看实习岗位，用的是 SVN（subversion），简单记录一下上手流程，用起来感觉和Git差不多。
 date: 2024-12-12
-image: https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/b28df248bef1465fa6580549ce73ca9f~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgUWhiZWU=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMTc3NTAyNjE4NzUzNTE5NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1770169520&x-orig-sign=IjE%2BG2o3HLiN9Q7%2FY3aea%2F3Fk0Y%3D
+image: /images/blog/svn-and-git.png
 minRead: 5
 author:
   name: Qhbee

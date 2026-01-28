@@ -2,7 +2,7 @@
 title: "快速 Java 转 Go 入门指南：基础语法和常用特性对比"
 description: 我从Java转向Golang的过程中，常常因为不同点而犯错，所以主要关注两者的不同。文章参考：字节内部课和刘丹冰老师的B站课程。
 date: 2024-11-23
-image: https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/f983688e6c3046d49fbd1f201fdb60e2~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgUWhiZWU=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMTc3NTAyNjE4NzUzNTE5NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1770190275&x-orig-sign=4GpvOPCGsr7xrhjnuy1Rwp1LnR4%3D
+image: /images/blog/java-to-go.png
 minRead: 8
 author:
   name: Qhbee

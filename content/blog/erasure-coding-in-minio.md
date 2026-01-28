@@ -2,7 +2,7 @@
 title: "MinIO 的纠删码原理与应用"
 description: 最近在用MinIO，查阅了很多文档、相关文章，让AI总结了后，发出来记录一下。可能会有错，有朋友发现了，还望赐教！
 date: 2025-02-12
-image: https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/14774502031348f182fae5cb287b9cd6~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgUWhiZWU=:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiMTc3NTAyNjE4NzUzNTE5NCJ9&rk3s=f64ab15b&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1770187871&x-orig-sign=HN5Ze7moG5dhUEbGjlWwIVJn81w%3D
+image: /images/blog/minio.png
 minRead: 10
 author:
   name: Qhbee
