@@ -30,6 +30,7 @@ const localizedLinks = computed(() =>
       }"
     >
       <template #list-trailing>
+        <LanguageSwitcher />
         <ColorModeButton />
       </template>
     </UNavigationMenu>
