@@ -1,5 +1,9 @@
 import { defineCollection, defineContentConfig, z } from '@nuxt/content'
 
+// ============================================================================
+// Schema Definitions (可复用的 Schema 构建器)
+// ============================================================================
+
 const createBaseSchema = () => z.object({
   title: z.string(),
   description: z.string()
@@ -34,85 +38,80 @@ const createTestimonialSchema = () => z.object({
   author: createAuthorSchema()
 })
 
+// Index 页面 Schema
+const indexSchema = z.object({
+  hero: z.object({
+    links: z.array(createButtonSchema()),
+    images: z.array(createImageSchema())
+  }),
+  about: createBaseSchema(),
+  experience: createBaseSchema().extend({
+    items: z.array(z.object({
+      date: z.date(),
+      position: z.string(),
+      company: z.object({
+        name: z.string(),
+        url: z.string(),
+        logo: z.string().editor({ input: 'icon' }),
+        color: z.string()
+      })
+    }))
+  }),
+  testimonials: z.array(createTestimonialSchema()),
+  blog: createBaseSchema(),
+  faq: createBaseSchema().extend({
+    categories: z.array(
+      z.object({
+        title: z.string().nonempty(),
+        questions: z.array(
+          z.object({
+            label: z.string().nonempty(),
+            content: z.string().nonempty()
+          })
+        )
+      }))
+  })
+})
+
+// Projects Schema
+const projectSchema = z.object({
+  title: z.string().nonempty(),
+  description: z.string().nonempty(),
+  image: z.string().nonempty().editor({ input: 'media' }),
+  url: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  date: z.date().optional(),
+  category: z.string().nonempty()
+})
+
+// Blog Schema
+const blogSchema = z.object({
+  minRead: z.number(),
+  date: z.date(),
+  image: z.string().nonempty().editor({ input: 'media' }),
+  author: createAuthorSchema()
+})
+
+// Pages Schema (projects.yml, blog.yml)
+const pagesSchema = z.object({
+  links: z.array(createButtonSchema())
+})
+
+// About Schema
+const aboutSchema = z.object({
+  content: z.object({}),
+  images: z.array(createImageSchema())
+})
+
+// ============================================================================
+// Collection Definitions (内容集合)
+// ============================================================================
 export default defineContentConfig({
   collections: {
-    index: defineCollection({
-      type: 'page',
-      source: 'index.yml',
-      schema: z.object({
-        hero: z.object({
-          links: z.array(createButtonSchema()),
-          images: z.array(createImageSchema())
-        }),
-        about: createBaseSchema(),
-        experience: createBaseSchema().extend({
-          items: z.array(z.object({
-            date: z.date(),
-            position: z.string(),
-            company: z.object({
-              name: z.string(),
-              url: z.string(),
-              logo: z.string().editor({ input: 'icon' }),
-              color: z.string()
-            })
-          }))
-        }),
-        testimonials: z.array(createTestimonialSchema()),
-        blog: createBaseSchema(),
-        faq: createBaseSchema().extend({
-          categories: z.array(
-            z.object({
-              title: z.string().nonempty(),
-              questions: z.array(
-                z.object({
-                  label: z.string().nonempty(),
-                  content: z.string().nonempty()
-                })
-              )
-            }))
-        })
-      })
-    }),
-    projects: defineCollection({
-      type: 'data',
-      source: 'projects/*.yml',
-      schema: z.object({
-        title: z.string().nonempty(),
-        description: z.string().nonempty(),
-        image: z.string().nonempty().editor({ input: 'media' }),
-        url: z.string().optional(),
-        tags: z.array(z.string()).optional(),
-        date: z.date().optional(),
-        category: z.string().nonempty()
-      })
-    }),
-    blog: defineCollection({
-      type: 'page',
-      source: 'blog/*.md',
-      schema: z.object({
-        minRead: z.number(),
-        date: z.date(),
-        image: z.string().nonempty().editor({ input: 'media' }),
-        author: createAuthorSchema()
-      })
-    }),
-    pages: defineCollection({
-      type: 'page',
-      source: [
-        { include: 'projects.yml' },
-        { include: 'blog.yml' }
-      ],
-      schema: z.object({
-        links: z.array(createButtonSchema())
-      })
-    }),
-    about: defineCollection({
-      type: 'page',
-      source: 'about.yml',
-      schema: z.object({
-        content: z.object({}),
-        images: z.array(createImageSchema())
-      })
-    })
+    index: defineCollection({ type: 'page', source: 'index.yml', schema: indexSchema }),
+    projects: defineCollection({ type: 'data', source: 'projects/*.yml', schema: projectSchema }),
+    blog: defineCollection({ type: 'page', source: 'blog/*.md', schema: blogSchema }),
+    pages: defineCollection({ type: 'page', source: [{ include: 'projects.yml' }, { include: 'blog.yml' }], schema: pagesSchema }),
+    about: defineCollection({ type: 'page', source: 'about.yml', schema: aboutSchema })
   }
 })
