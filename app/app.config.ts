@@ -5,8 +5,9 @@ export default defineAppConfig({
       light: '/avatar.jpg',
       alt: 'My avatar'
     },
-    meetingLink: 'https://cal.com/',
-    email: 'ui-pro@nuxt.com',
+    githubLink: 'https://github.com/Qhbee',
+    steamLink: 'https://steamcommunity.com/profiles/76561199433361830/',
+    email: 'qhbee@qq.com',
     available: true
   },
   ui: {
