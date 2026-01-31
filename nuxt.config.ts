@@ -44,7 +44,7 @@ export default defineNuxtConfig({
       { code: 'zh', name: '简体中文', language: 'zh-CN', file: 'zh.json' }
     ],
     defaultLocale: 'en',
-    strategy: 'prefix_except_default', // 路由策略：默认语言不带前缀，其他语言带前缀 (/ => en, /zh => zh)
+    strategy: 'prefix', // 路由策略：全部语言平等，统一带前缀 (/en => en, /zh => zh)
     // 浏览器语言检测配置
     detectBrowserLanguage: {
       useCookie: true,

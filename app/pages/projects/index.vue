@@ -27,7 +27,7 @@ const tabOrder: CategoryKey[] = ['all', 'tools', 'apps', 'toys', 'plugins', 'exp
 // -------------------------
 
 const { data: page } = await useAsyncData('projects-page', () => {
-  return queryCollection('pages').path('/projects').first()
+  return queryCollection('pages').path('/en/projects').first()
 })
 
 if (!page.value) {
@@ -97,7 +97,7 @@ const normalizeProjectItem = (raw: any): ProjectViewItem => {
     slug,
     url,
     category: (String(raw.category ?? 'other') as CategoryKey),
-    href: url || `/projects/${slug}`
+    href: url || `/en/projects/${slug}`
   }
 }
 

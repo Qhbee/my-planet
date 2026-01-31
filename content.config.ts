@@ -104,14 +104,18 @@ const aboutSchema = z.object({
 })
 
 // ============================================================================
-// Collection Definitions (内容集合)
+// Collection Definitions (i18n: 目录分割法)
 // ============================================================================
 export default defineContentConfig({
   collections: {
-    index: defineCollection({ type: 'page', source: 'index.yml', schema: indexSchema }),
-    projects: defineCollection({ type: 'data', source: 'projects/*.yml', schema: projectSchema }),
-    blog: defineCollection({ type: 'page', source: 'blog/*.md', schema: blogSchema }),
-    pages: defineCollection({ type: 'page', source: [{ include: 'projects.yml' }, { include: 'blog.yml' }], schema: pagesSchema }),
-    about: defineCollection({ type: 'page', source: 'about.yml', schema: aboutSchema })
+    // ========== English Collections ==========
+    index: defineCollection({ type: 'page', source: 'en/index.yml', schema: indexSchema }),
+    projects: defineCollection({ type: 'data', source: 'en/projects/*.yml', schema: projectSchema }),
+    blog: defineCollection({ type: 'page', source: 'en/blog/*.md', schema: blogSchema }),
+    pages: defineCollection({ type: 'page', source: [{ include: 'en/projects.yml' }, { include: 'en/blog.yml' }], schema: pagesSchema }),
+    about: defineCollection({ type: 'page', source: 'en/about.yml', schema: aboutSchema })
+
+    // ========== Chinese Collections ==========
+    // TODO
   }
 })
