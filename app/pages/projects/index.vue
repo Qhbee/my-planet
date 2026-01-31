@@ -27,7 +27,7 @@ const tabOrder: CategoryKey[] = ['all', 'tools', 'apps', 'toys', 'plugins', 'exp
 // -------------------------
 
 const { data: page } = await useAsyncData('projects-page', () => {
-  return queryCollection('pages').path('/en/projects').first()
+  return queryCollection('pages_en').path('/en/projects').first()
 })
 
 if (!page.value) {
@@ -39,7 +39,7 @@ if (!page.value) {
 }
 
 const { data: projects } = await useAsyncData('projects', () => {
-  return queryCollection('projects').all()
+  return queryCollection('projects_en').all()
 })
 
 // -------------------------

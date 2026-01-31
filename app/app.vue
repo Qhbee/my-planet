@@ -29,14 +29,14 @@ useSeoMeta({
 const [{ data: navigation }, { data: files }] = await Promise.all([
   useAsyncData('navigation', () => {
     return Promise.all([
-      queryCollectionNavigation('blog')
+      queryCollectionNavigation('blog_en')
     ])
   }, {
     transform: data => data.flat()
   }),
   useLazyAsyncData('search', () => {
     return Promise.all([
-      queryCollectionSearchSections('blog')
+      queryCollectionSearchSections('blog_en')
     ])
   }, {
     server: false,

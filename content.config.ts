@@ -109,11 +109,11 @@ const aboutSchema = z.object({
 export default defineContentConfig({
   collections: {
     // ========== English Collections ==========
-    index: defineCollection({ type: 'page', source: 'en/index.yml', schema: indexSchema }),
-    projects: defineCollection({ type: 'data', source: 'en/projects/*.yml', schema: projectSchema }),
-    blog: defineCollection({ type: 'page', source: 'en/blog/*.md', schema: blogSchema }),
-    pages: defineCollection({ type: 'page', source: [{ include: 'en/projects.yml' }, { include: 'en/blog.yml' }], schema: pagesSchema }),
-    about: defineCollection({ type: 'page', source: 'en/about.yml', schema: aboutSchema })
+    index_en: defineCollection({ type: 'page', source: 'en/index.yml', schema: indexSchema }),
+    projects_en: defineCollection({ type: 'data', source: 'en/projects/*.yml', schema: projectSchema }),
+    blog_en: defineCollection({ type: 'page', source: 'en/blog/*.md', schema: blogSchema }),
+    pages_en: defineCollection({ type: 'page', source: [{ include: 'en/projects.yml' }, { include: 'en/blog.yml' }], schema: pagesSchema }),
+    about_en: defineCollection({ type: 'page', source: 'en/about.yml', schema: aboutSchema })
 
     // ========== Chinese Collections ==========
     // TODO
