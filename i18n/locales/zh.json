@@ -4,5 +4,11 @@
     "projects": "项目",
     "blog": "文章",
     "about": "关于"
+  },
+  "error": {
+    "notFound": {
+      "title": "页面未找到",
+      "description": "抱歉，当前页面不存在。"
+    }
   }
 }

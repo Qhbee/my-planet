@@ -4,5 +4,11 @@
     "projects": "Projects",
     "blog": "Blog",
     "about": "About"
+  },
+  "error": {
+    "notFound": {
+      "title": "Page not found",
+      "description": "We are sorry but this page could not be found."
+    }
   }
 }

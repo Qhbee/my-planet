@@ -8,15 +8,17 @@ defineProps({
   }
 })
 
+const { locale, t } = useI18n()
+
 useHead({
   htmlAttrs: {
-    lang: 'en'
+    lang: locale
   }
 })
 
 useSeoMeta({
-  title: 'Page not found',
-  description: 'We are sorry but this page could not be found.'
+  title: t('error.notFound.title'),
+  description: t('error.notFound.description')
 })
 
 const [{ data: navigation }, { data: files }] = await Promise.all([
