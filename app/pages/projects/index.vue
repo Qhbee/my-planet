@@ -26,8 +26,9 @@ const tabOrder: CategoryKey[] = ['all', 'tools', 'apps', 'toys', 'plugins', 'exp
 // Content: load page + projects
 // -------------------------
 
+const { locale } = useI18n()
 const { data: page } = await useAsyncData('projects-page', () => {
-  return queryCollection('pages_en').path('/en/projects').first()
+  return queryCollection(`pages_${locale.value}`).path(`/${locale.value}/projects`).first()
 })
 
 if (!page.value) {
@@ -39,7 +40,7 @@ if (!page.value) {
 }
 
 const { data: projects } = await useAsyncData('projects', () => {
-  return queryCollection('projects_en').all()
+  return queryCollection(`projects_${locale.value}`).all()
 })
 
 // -------------------------
@@ -97,7 +98,7 @@ const normalizeProjectItem = (raw: any): ProjectViewItem => {
     slug,
     url,
     category: (String(raw.category ?? 'other') as CategoryKey),
-    href: url || `/en/projects/${slug}`
+    href: url || `/${locale.value}/projects/${slug}`
   }
 }
 

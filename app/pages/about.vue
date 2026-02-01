@@ -1,6 +1,7 @@
 <script setup lang="ts">
+const { locale } = useI18n()
 const { data: page } = await useAsyncData('about', () => {
-  return queryCollection('about_en').first()
+  return queryCollection(`about_${locale.value}`).first()
 })
 if (!page.value) {
   throw createError({

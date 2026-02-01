@@ -1,0 +1,120 @@
+seo:
+  title: "首页"
+  description: "欢迎来到我的星球！我是 Mars⁴⁰⁴-β 的 Qhbee 。"
+title: "你好, 我是 Mars⁴⁰⁴-β 星球的 Qhbee 。"
+description: "我的兴趣十分广泛。"
+hero:
+  links:
+    - label: "GitHub"
+      to: https://github.com/Qhbee
+      color: "neutral"
+  images:
+    - src: /hero/random-1.avif
+      alt: Random Image 1
+    - src: /hero/random-2.avif
+      alt: Random Image 2
+    - src: /hero/random-3.avif
+      alt: Random Image 3
+    - src: /hero/random-4.avif
+      alt: Random Image 4
+    - src: /hero/random-5.avif
+      alt: Random Image 5
+    - src: /hero/random-6.avif
+      alt: Random Image 6
+    - src: /hero/random-7.avif
+      alt: Random Image 7
+    - src: /hero/random-8.avif
+      alt: Random Image 8
+    - src: /hero/random-9.avif
+      alt: Random Image 9
+about:
+  title: "关于我"
+  description: |
+    As a UX/UI designer and front-end developer with 6 years of experience, I leverage my Boston University Interactive Design degree to craft user-centered digital experiences.
+    My approach blends creative strategy with technical expertise, transforming concepts into functional, purposeful digital products that seamlessly integrate design and technology.
+experience:
+  title: 工作经历
+  items:
+    - position: "Brand Designer at"
+      date: "2023 - Present"
+      company:
+        name: Nuxt
+        logo: "i-simple-icons-nuxtdotjs"
+        url: "https://nuxt.com"
+        color: "#00DC82"
+    - position: "Assets Designer at"
+      date: "2022 - 2023"
+      company:
+        name: Raycast
+        logo: "i-simple-icons-raycast"
+        url: "https://raycast.com"
+        color: "#FF6363"
+    - position: "Senior UX/UI Designer at"
+      date: "2020 - 2021"
+      company:
+        name: Linear
+        logo: "i-simple-icons-linear"
+        url: "https://linear.app"
+        color: "#5E6AD2"
+testimonials:
+  - quote: "Qhbee 非常善良、聪明，还很英俊。"
+    author:
+      name: 'WuDi-ZhanShen'
+      description: '很无敌，是战神！'
+      avatar:
+        src: 'https://avatars.githubusercontent.com/u/104905415?v=4'
+        srcset: 'https://avatars.githubusercontent.com/u/104905415?v=4 2x'
+  - quote: "和 Qhbee 呆在一起很开心。"
+    author:
+      name: 'QiDaYee'
+      description: '一个战士。'
+      avatar:
+        src: 'https://avatars.fastly.steamstatic.com/a024dd7f98c979796625b153fc7bbe1824b5a564_full.jpg'
+        srcset: 'https://avatars.fastly.steamstatic.com/a024dd7f98c979796625b153fc7bbe1824b5a564_full.jpg 2x'
+  - quote: "我说小伙子你不讲武德你不懂"
+    author:
+      name: '马老师'
+      description: '浑元形意太极拳掌门人'
+      avatar:
+        src: 'https://avatars.fastly.steamstatic.com/6591e783ae2b8effb14c1055f5fa5e82c0939fdb_full.jpg'
+        srcset: 'https://avatars.fastly.steamstatic.com/6591e783ae2b8effb14c1055f5fa5e82c0939fdb_full.jpg 2x'
+blog:
+  title: "最新文章"
+  description: "我近期的一些想法"
+faq:
+  title: 最常见的问题
+  description: Answers to common questions about my process and services.
+  categories:
+    - title: Services & Process
+      questions:
+        - label: What services do you offer?
+          content: |
+            I specialize in UX/UI design and front-end development. This includes user research, wireframing, interactive prototyping, creating intuitive user interfaces, building responsive websites and web applications (especially with Vue.js/Nuxt.js), and developing design systems. My goal is to create seamless digital experiences from concept to deployment.
+        - label: What is your design process like?
+          content: |
+            My process is collaborative and iterative, typically involving stages like Discovery & Research, Ideation & Prototyping, User Testing, Visual Design, and close collaboration with development teams during implementation. I tailor the process based on project needs, always focusing on user-centered solutions.
+        - label: Do you work with startups?
+          content: |
+            Absolutely! I enjoy working with startups to help shape their product vision and create user-friendly interfaces from the ground up. I can adapt my process to fit the fast-paced startup environment.
+    - title: Pricing & Timelines
+      questions:
+        - label: How much does a project typically cost?
+          content: |
+            Project costs vary based on scope, complexity, features, and timeline. For comprehensive UX/UI design and front-end development projects, my engagements typically start around $5,000, with average projects ranging between $8,000 and $25,000. For consulting or specific design tasks, my day rate is $700.
+        - label: What are your payment terms?
+          content: |
+            I generally require a 40% deposit to schedule the project and begin work, with the remaining 60% due upon successful project completion and delivery. I accept payments via bank transfer and Stripe.
+        - label: How long does a typical project take?
+          content: |
+            Timelines depend heavily on the project's scope and complexity. Smaller projects might take 3-4 weeks, while larger, more involved projects can range from 2 to 4 months. I always provide a detailed timeline estimate after the initial discovery phase.
+        - label: Do you offer retainers or ongoing support?
+          content: |
+            Yes, for clients needing ongoing design support, feature development, or maintenance, I offer monthly retainer options tailored to specific needs. Let's discuss if this is something you're interested in.
+    - title: About Me
+      questions:
+        - label: What do you enjoy most about your work?
+          content: |
+            I love the challenge of solving complex problems through design and technology. It's incredibly rewarding to see people interact with something I've created and find it genuinely useful and easy to navigate. Bridging the gap between user needs and technical possibilities is what truly excites me.
+        - label: What are your hobbies outside of work?
+          content: |
+            When I'm not designing or coding, I enjoy exploring Boston's neighborhoods, trying out new coffee shops, and hiking in the nearby reservations. I'm also passionate about photography and occasionally contribute to open-source projects.

@@ -104,7 +104,7 @@ const aboutSchema = z.object({
 })
 
 // ============================================================================
-// Collection Definitions (i18n: 目录分割法)
+// Collection Definitions (i18n: 目录分割法 + {业务}_{语言} 命名规范)
 // ============================================================================
 export default defineContentConfig({
   collections: {
@@ -113,9 +113,13 @@ export default defineContentConfig({
     projects_en: defineCollection({ type: 'data', source: 'en/projects/*.yml', schema: projectSchema }),
     blog_en: defineCollection({ type: 'page', source: 'en/blog/*.md', schema: blogSchema }),
     pages_en: defineCollection({ type: 'page', source: [{ include: 'en/projects.yml' }, { include: 'en/blog.yml' }], schema: pagesSchema }),
-    about_en: defineCollection({ type: 'page', source: 'en/about.yml', schema: aboutSchema })
+    about_en: defineCollection({ type: 'page', source: 'en/about.yml', schema: aboutSchema }),
 
     // ========== Chinese Collections ==========
-    // TODO
+    index_zh: defineCollection({ type: 'page', source: 'zh/index.yml', schema: indexSchema }),
+    projects_zh: defineCollection({ type: 'data', source: 'zh/projects/*.yml', schema: projectSchema }),
+    blog_zh: defineCollection({ type: 'page', source: 'zh/blog/*.md', schema: blogSchema }),
+    pages_zh: defineCollection({ type: 'page', source: [{ include: 'zh/projects.yml' }, { include: 'zh/blog.yml' }], schema: pagesSchema }),
+    about_zh: defineCollection({ type: 'page', source: 'zh/about.yml', schema: aboutSchema })
   }
 })
