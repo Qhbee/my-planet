@@ -371,12 +371,6 @@ const dy = Math.round(radius / 2)
                   Copy RGB / RGBA / HEX / HEX8
                 </div>
               </div>
-              <UButton
-                variant="soft"
-                @click="copy(hexText)"
-              >
-                Copy HEX
-              </UButton>
             </div>
           </template>
 
