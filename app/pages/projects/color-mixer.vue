@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
+const { t } = useI18n()
+
 useSeoMeta({
-  title: 'Color Mixer'
+  title: t('projects.colorMixer.seoTitle')
 })
 
 type MixMode = 'light' | 'pigment'
@@ -141,13 +143,13 @@ const dy = Math.round(radius / 2)
           <template #header>
             <div class="flex items-center justify-between">
               <div class="font-semibold">
-                Channels
+                {{ t('projects.colorMixer.channels') }}
               </div>
               <UButton
                 variant="soft"
                 @click="reset"
               >
-                Reset
+                {{ t('projects.colorMixer.reset') }}
               </UButton>
             </div>
           </template>
@@ -245,7 +247,7 @@ const dy = Math.round(radius / 2)
           <template #header>
             <div class="flex items-center justify-between">
               <div class="font-semibold">
-                Presets
+                {{ t('projects.colorMixer.presets') }}
               </div>
             </div>
           </template>
@@ -279,10 +281,10 @@ const dy = Math.round(radius / 2)
             <div class="flex items-center justify-between gap-3">
               <div>
                 <div class="font-semibold">
-                  Mixing
+                  {{ t('projects.colorMixer.mixing') }}
                 </div>
                 <div class="text-sm text-muted">
-                  Preview + 3-circle demo
+                  {{ t('projects.colorMixer.mixingDesc') }}
                 </div>
               </div>
               <div class="flex items-center gap-2">
@@ -290,13 +292,13 @@ const dy = Math.round(radius / 2)
                   :variant="mode === 'pigment' ? 'solid' : 'soft'"
                   @click="mode = 'pigment'"
                 >
-                  Pigment
+                  {{ t('projects.colorMixer.modePigment') }}
                 </UButton>
                 <UButton
                   :variant="mode === 'light' ? 'solid' : 'soft'"
                   @click="mode = 'light'"
                 >
-                  Light
+                  {{ t('projects.colorMixer.modeLight') }}
                 </UButton>
               </div>
             </div>
@@ -310,7 +312,7 @@ const dy = Math.round(radius / 2)
               />
               <div class="p-3 text-sm">
                 <div class="font-medium">
-                  Preview
+                  {{ t('projects.colorMixer.preview') }}
                 </div>
                 <div class="text-xs text-muted break-words">
                   {{ cssRgba }}
@@ -337,7 +339,7 @@ const dy = Math.round(radius / 2)
               <div class="mt-4">
                 <div class="flex items-center justify-between">
                   <div class="text-sm font-medium">
-                    Demo opacity
+                    {{ t('projects.colorMixer.demoOpacity') }}
                   </div>
                   <div class="text-sm text-muted">
                     {{ Math.round(circleOpacity * 100) }}%
@@ -365,10 +367,10 @@ const dy = Math.round(radius / 2)
             <div class="flex items-center justify-between">
               <div>
                 <div class="font-semibold">
-                  Formats
+                  {{ t('projects.colorMixer.formats') }}
                 </div>
                 <div class="text-sm text-muted">
-                  Copy RGB / RGBA / HEX / HEX8
+                  {{ t('projects.colorMixer.formatsDesc') }}
                 </div>
               </div>
             </div>
@@ -385,7 +387,7 @@ const dy = Math.round(radius / 2)
                 variant="link"
                 @click="copy(rgbText)"
               >
-                Copy
+                {{ t('projects.common.copy') }}
               </UButton>
             </div>
             <div class="flex items-center justify-between gap-3">
@@ -398,7 +400,7 @@ const dy = Math.round(radius / 2)
                 variant="link"
                 @click="copy(rgbaText)"
               >
-                Copy
+                {{ t('projects.common.copy') }}
               </UButton>
             </div>
             <div class="flex items-center justify-between gap-3">
@@ -411,7 +413,7 @@ const dy = Math.round(radius / 2)
                 variant="link"
                 @click="copy(hexText)"
               >
-                Copy
+                {{ t('projects.common.copy') }}
               </UButton>
             </div>
             <div class="flex items-center justify-between gap-3">
@@ -424,7 +426,7 @@ const dy = Math.round(radius / 2)
                 variant="link"
                 @click="copy(hex8Text)"
               >
-                Copy
+                {{ t('projects.common.copy') }}
               </UButton>
             </div>
           </div>

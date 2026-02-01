@@ -5,7 +5,7 @@ defineProps<{
   page: IndexEnCollectionItem | IndexZhCollectionItem
 }>()
 
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 const { data: posts } = await useAsyncData('index-blogs', () =>
   queryCollection(`blog_${locale.value}`).order('date', 'DESC').limit(3).all()
 )
@@ -46,7 +46,7 @@ if (!posts.value) {
             size="xs"
             variant="link"
             class="px-0 gap-0"
-            label="Read Article"
+            :label="t('home.blog.readArticle')"
           >
             <template #trailing>
               <UIcon

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
+const { t } = useI18n()
+
 useSeoMeta({
-  title: 'JSON Formatter'
+  title: t('projects.jsonFormatter.seoTitle')
 })
 
 const input = ref(`{
@@ -46,7 +48,7 @@ const copy = async () => {
     <div class="mt-6 space-y-4">
       <div class="flex items-center gap-3">
         <div class="text-sm text-muted">
-          Indent
+          {{ t('projects.jsonFormatter.indent') }}
         </div>
         <USelect
           v-model="indent"
@@ -59,7 +61,7 @@ const copy = async () => {
           variant="soft"
           @click="copy"
         >
-          Copy
+          {{ t('projects.common.copy') }}
         </UButton>
       </div>
 
@@ -67,7 +69,7 @@ const copy = async () => {
         <UCard>
           <template #header>
             <div class="font-medium">
-              Input
+              {{ t('projects.common.input') }}
             </div>
           </template>
           <UTextarea
@@ -86,7 +88,7 @@ const copy = async () => {
               v-else
               class="text-xs text-muted"
             >
-              Local-only, no server request.
+              {{ t('projects.common.localOnly') }}
             </div>
           </template>
         </UCard>
@@ -94,7 +96,7 @@ const copy = async () => {
         <UCard>
           <template #header>
             <div class="font-medium">
-              Output
+              {{ t('projects.common.output') }}
             </div>
           </template>
           <UTextarea

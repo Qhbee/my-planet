@@ -2,6 +2,7 @@
 import type { IndexEnCollectionItem, IndexZhCollectionItem } from '@nuxt/content'
 
 const { footer, global } = useAppConfig()
+const { t } = useI18n()
 
 defineProps<{
   page: IndexEnCollectionItem | IndexZhCollectionItem
@@ -111,7 +112,7 @@ defineProps<{
             variant="ghost"
             class="gap-2"
             :to="global.available ? global.steamLink : ''"
-            :label="global.available ? 'Steam Online' : 'Steam Offline'"
+            :label="global.available ? t('home.hero.available') : t('home.hero.unavailable')"
           >
             <template #leading>
               <span class="relative flex size-2">

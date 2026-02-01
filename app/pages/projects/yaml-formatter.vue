@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
+const { t } = useI18n()
+
 useSeoMeta({
-  title: 'YAML Formatter'
+  title: t('projects.yamlFormatter.seoTitle')
 })
 
 const input = ref('')
@@ -51,7 +53,7 @@ const copy = async () => {
           variant="soft"
           @click="copy"
         >
-          Copy
+          {{ t('projects.common.copy') }}
         </UButton>
       </div>
 
@@ -59,14 +61,14 @@ const copy = async () => {
         <UCard>
           <template #header>
             <div class="font-medium">
-              Input
+              {{ t('projects.common.input') }}
             </div>
           </template>
           <UTextarea
             v-model="input"
             :rows="16"
             class="w-full"
-            placeholder="Paste YAML here..."
+            :placeholder="t('projects.yamlFormatter.placeholder')"
           />
           <template #footer>
             <div
@@ -79,7 +81,7 @@ const copy = async () => {
               v-else
               class="text-xs text-muted"
             >
-              Local-only, no server request.
+              {{ t('projects.common.localOnly') }}
             </div>
           </template>
         </UCard>
@@ -87,7 +89,7 @@ const copy = async () => {
         <UCard>
           <template #header>
             <div class="font-medium">
-              Output
+              {{ t('projects.common.output') }}
             </div>
           </template>
           <UTextarea

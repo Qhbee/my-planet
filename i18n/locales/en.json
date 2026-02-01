@@ -10,5 +10,50 @@
       "title": "Page not found",
       "description": "We are sorry but this page could not be found."
     }
+  },
+  "home": {
+    "blog": {
+      "readArticle": "Read Article"
+    },
+    "hero": {
+      "available": "Steam Online",
+      "unavailable": "Steam Offline"
+    }
+  },
+  "projects": {
+    "common": {
+      "copy": "Copy",
+      "input": "Input",
+      "output": "Output",
+      "localOnly": "Local-only, no server request."
+    },
+    "jsonFormatter": {
+      "seoTitle": "JSON Formatter",
+      "indent": "Indent"
+    },
+    "yamlFormatter": {
+      "seoTitle": "YAML Formatter",
+      "placeholder": "Paste YAML here..."
+    },
+    "colorMixer": {
+      "seoTitle": "Color Mixer",
+      "channels": "Channels",
+      "reset": "Reset",
+      "presets": "Presets",
+      "mixing": "Mixing",
+      "mixingDesc": "Preview + 3-circle demo",
+      "modePigment": "Pigment",
+      "modeLight": "Light",
+      "preview": "Preview",
+      "demoOpacity": "Demo opacity",
+      "formats": "Formats",
+      "formatsDesc": "Copy RGB / RGBA / HEX / HEX8"
+    }
+  },
+  "blog": {
+    "link": {
+      "toCopy": "Copy link",
+      "copied": "Article link copied to clipboard"
+    }
   }
 }

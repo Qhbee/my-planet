@@ -4,7 +4,7 @@ import { mapContentNavigation } from '@nuxt/ui/utils/content'
 import { findPageBreadcrumb } from '@nuxt/content/utils'
 
 const route = useRoute()
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 
 const { data: page } = await useAsyncData(route.path, () =>
   queryCollection(`blog_${locale.value}`).path(route.path).first()
@@ -107,8 +107,8 @@ const formatDate = (dateString: string) => {
               size="sm"
               variant="link"
               color="neutral"
-              label="Copy link"
-              @click="copyToClipboard(articleLink, 'Article link copied to clipboard')"
+              :label="t('blog.link.toCopy')"
+              @click="copyToClipboard(articleLink, t('blog.link.copied'))"
             />
           </div>
           <UContentSurround :surround />
