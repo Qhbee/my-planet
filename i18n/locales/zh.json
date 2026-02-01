@@ -48,6 +48,10 @@
       "demoOpacity": "演示不透明度",
       "formats": "格式",
       "formatsDesc": "复制 RGB / RGBA / HEX / HEX8"
+    },
+    "iskra": {
+      "seoTitle": "伊斯克拉",
+      "placeholder": "马克思主义专家 agent，占位页；后续接入聊天 UI 与 API。"
     }
   },
   "blog": {

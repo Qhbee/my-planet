@@ -48,6 +48,10 @@
       "demoOpacity": "Demo opacity",
       "formats": "Formats",
       "formatsDesc": "Copy RGB / RGBA / HEX / HEX8"
+    },
+    "iskra": {
+      "seoTitle": "Iskra",
+      "placeholder": "Marxism expert agent, placeholder page; subsequent connection to chat UI and API."
     }
   },
   "blog": {
