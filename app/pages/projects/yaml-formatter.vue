@@ -79,7 +79,7 @@ const copy = async () => {
               v-else
               class="text-xs text-muted"
             >
-              Placeholder formatter (no YAML parser yet).
+              Local-only, no server request.
             </div>
           </template>
         </UCard>
