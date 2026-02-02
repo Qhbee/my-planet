@@ -91,14 +91,20 @@ const quickChats = [
 </script>
 
 <template>
-  <UDashboardPanel id="home" :ui="{ body: 'p-0 sm:p-0' }">
+  <UDashboardPanel
+    id="home"
+    :ui="{ body: 'p-0 sm:p-0' }"
+  >
     <template #header>
       <IskraDashboardNavbar />
     </template>
 
     <template #body>
       <IskraDragDropOverlay :show="!!isDragging" />
-      <UContainer ref="dropzoneRef" class="flex-1 flex flex-col justify-center gap-4 sm:gap-6 py-8">
+      <UContainer
+        ref="dropzoneRef"
+        class="flex-1 flex flex-col justify-center gap-4 sm:gap-6 py-8"
+      >
         <h1 class="text-3xl sm:text-4xl text-highlighted font-bold">
           How can I help you today?
         </h1>
@@ -112,7 +118,10 @@ const quickChats = [
           :ui="{ base: 'px-1.5' }"
           @submit="onSubmit"
         >
-          <template v-if="files.length > 0" #header>
+          <template
+            v-if="files.length > 0"
+            #header
+          >
             <div class="flex flex-wrap gap-2">
               <IskraFileAvatar
                 v-for="fileWithStatus in files"
@@ -134,7 +143,11 @@ const quickChats = [
               <IskraModelSelect v-model="model" />
             </div>
 
-            <UChatPromptSubmit color="neutral" size="sm" :disabled="isUploading" />
+            <UChatPromptSubmit
+              color="neutral"
+              size="sm"
+              :disabled="isUploading"
+            />
           </template>
         </UChatPrompt>
 
