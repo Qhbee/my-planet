@@ -26,6 +26,10 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
+const route = useRoute()
+/** Iskra 使用自己的 layout（UDashboardGroup），不需要 UMain，否则主内容区会偏左、右侧空白 */
+const isIskraRoute = computed(() => String(route.path).includes('/projects/iskra'))
+
 const [{ data: navigation }, { data: files }] = await Promise.all([
   useAsyncData('navigation', () => {
     return Promise.all([
@@ -48,9 +52,10 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
 <template>
   <UApp>
     <NuxtLayout>
-      <UMain class="relative">
+      <UMain v-if="!isIskraRoute" class="relative">
         <NuxtPage />
       </UMain>
+      <NuxtPage v-else />
     </NuxtLayout>
 
     <ClientOnly>

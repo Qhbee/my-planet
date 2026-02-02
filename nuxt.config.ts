@@ -1,4 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
+
+const rootDir = fileURLToPath(new URL('.', import.meta.url))
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -8,7 +13,9 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-og-image',
     'motion-v/nuxt',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    'nuxt-auth-utils',
+    'nuxt-charts'
   ],
 
   devtools: {
@@ -17,9 +24,17 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  alias: {
+    // Server 内稳定引用 db，避免 Nitro 打包时相对路径解析失败
+    '#db': join(rootDir, 'server/utils/db')
+  },
+
   compatibilityDate: '2024-11-01',
 
   nitro: {
+    alias: {
+      '#db': join(rootDir, 'server/utils/db')
+    },
     prerender: {
       routes: [
         '/',
