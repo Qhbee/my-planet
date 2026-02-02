@@ -4,8 +4,7 @@ import { z } from 'zod'
 import { db, schema } from '#db'
 import { and, eq } from 'drizzle-orm'
 import type { UIMessage } from 'ai'
-import { weatherTool } from '../../../../shared/utils/tools/weather'
-import { chartTool } from '../../../../shared/utils/tools/chart'
+import { weatherTool, chartTool } from '#shared/utils'
 
 defineRouteMeta({
   openAPI: {

@@ -1,4 +1,4 @@
-import { FILE_UPLOAD_CONFIG } from '../../../../shared/utils/file'
+import { FILE_UPLOAD_CONFIG } from '#shared/utils'
 
 interface BlobResult {
   pathname: string
