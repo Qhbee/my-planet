@@ -38,8 +38,8 @@ onNuxtReady(async () => {
   }
 })
 
-watch(loggedIn, () => {
-  refreshChats()
+watch(loggedIn, async () => {
+  await refreshChats()
   open.value = false
 })
 
@@ -72,16 +72,16 @@ async function deleteChat(id: string) {
     icon: 'i-lucide-trash'
   })
 
-  refreshChats()
+  await refreshChats()
 
   if (route.params.id === id) {
-    navigateTo(localePath(iskraBase))
+    await navigateTo(localePath(iskraBase))
   }
 }
 
 defineShortcuts({
-  c: () => {
-    navigateTo(localePath(iskraBase))
+  c: async () => {
+    await navigateTo(localePath(iskraBase))
   }
 })
 </script>

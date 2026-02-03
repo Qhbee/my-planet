@@ -49,8 +49,8 @@ async function createChat(prompt: string) {
     }
   })
 
-  refreshNuxtData('iskra-chats')
-  navigateTo(localePath(`/projects/iskra/chat/${chat?.id}`))
+  await refreshNuxtData('iskra-chats')
+  await navigateTo(localePath(`/projects/iskra/chat/${chat?.id}`))
 }
 
 async function onSubmit() {

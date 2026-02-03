@@ -84,7 +84,7 @@ const chat = new Chat({
 async function handleSubmit(e: Event) {
   e.preventDefault()
   if (input.value.trim() && !isUploading.value) {
-    chat.sendMessage({
+    await chat.sendMessage({
       text: input.value,
       files: uploadedFiles.value.length > 0 ? uploadedFiles.value : undefined
     })
