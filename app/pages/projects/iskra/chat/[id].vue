@@ -71,6 +71,7 @@ const chat = new Chat({
     }
   },
   onError(error) {
+    // API 有时把错误放在 error.message 的 JSON 里（如 "{\"message\":\"...\"}"），需 parse 后取 message
     const { message } = typeof error.message === 'string' && error.message[0] === '{' ? JSON.parse(error.message) : error
     toast.add({
       description: message,
@@ -95,7 +96,7 @@ async function handleSubmit(e: Event) {
 
 const copied = ref(false)
 
-function copy(e: MouseEvent, message: UIMessage) {
+function copy(_e: MouseEvent, message: UIMessage) {
   clipboard.copy(getTextFromMessage(message))
 
   copied.value = true
