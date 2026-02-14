@@ -66,6 +66,23 @@
     "iskra": {
       "seoTitle": "Iskra",
       "placeholder": "Marxism expert agent, placeholder page; subsequent connection to chat UI and API."
+    },
+    "fileEncrypt": {
+      "seoTitle": "File Steganography",
+      "encrypt": "Encrypt",
+      "decrypt": "Decrypt",
+      "uploadFile": "Upload file (≤5MB)",
+      "selectCarrier": "Select carrier image",
+      "uploadCarrier": "Upload custom",
+      "password": "Password",
+      "bitsTaken": "Bits per channel (1 = stealthier)",
+      "generate": "Generate stego image",
+      "downloadImage": "Download image",
+      "uploadStegoImage": "Upload stego image",
+      "extract": "Extract file",
+      "downloadFile": "Download original file",
+      "fileTooBig": "File exceeds carrier capacity",
+      "invalidImage": "Please upload a valid PNG image"
     }
   },
   "blog": {

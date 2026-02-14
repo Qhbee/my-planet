@@ -66,6 +66,23 @@
     "iskra": {
       "seoTitle": "伊斯克拉",
       "placeholder": "马克思主义专家 agent，占位页；后续接入聊天 UI 与 API。"
+    },
+    "fileEncrypt": {
+      "seoTitle": "文件隐写加密",
+      "encrypt": "加密",
+      "decrypt": "解密",
+      "uploadFile": "上传文件（≤5MB）",
+      "selectCarrier": "选择 carrier 图片",
+      "uploadCarrier": "自定义上传",
+      "password": "密码",
+      "bitsTaken": "隐写位数（1 更隐蔽）",
+      "generate": "生成含隐写图片",
+      "downloadImage": "下载图片",
+      "uploadStegoImage": "上传含隐写图片",
+      "extract": "提取文件",
+      "downloadFile": "下载原文件",
+      "fileTooBig": "文件超出该图片容量",
+      "invalidImage": "请上传有效的 PNG 图片"
     }
   },
   "blog": {
