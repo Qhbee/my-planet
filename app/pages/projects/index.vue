@@ -26,7 +26,7 @@ const tabOrder: CategoryKey[] = ['all', 'tools', 'apps', 'toys', 'plugins', 'exp
 // Content: load page + projects
 // -------------------------
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const { data: page } = await useAsyncData('projects-page', () => {
   return queryCollection(`pages_${locale.value}`).path(`/${locale.value}/projects`).first()
 })
@@ -62,7 +62,7 @@ const tabs = computed<CategoryKey[]>(() => {
 })
 
 const tabItems = computed(() => {
-  return tabs.value.map(cat => ({ label: cat, value: cat }))
+  return tabs.value.map(cat => ({ label: t(`projects.categories.${cat}`), value: cat }))
 })
 
 // If currentCategory becomes unavailable (e.g. content changed), fallback to 'all'
@@ -198,7 +198,7 @@ useSeoMeta({
         <template v-if="Object.keys(visibleGroups).length === 0">
           <div class="text-center py-12">
             <p class="text-muted">
-              暂无项目数据
+              {{ t('projects.empty') }}
             </p>
           </div>
         </template>
@@ -208,7 +208,7 @@ useSeoMeta({
             :key="category"
           >
             <h2 class="text-2xl font-bold mb-4">
-              {{ category }}
+              {{ t(`projects.categories.${category}`) }}
             </h2>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -264,7 +264,7 @@ useSeoMeta({
                         variant="link"
                         :padded="false"
                       >
-                        View Project
+                        {{ t('projects.viewProject') }}
                         <UIcon
                           name="i-lucide-arrow-right"
                           class="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity"

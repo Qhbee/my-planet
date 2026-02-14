@@ -21,6 +21,17 @@
     }
   },
   "projects": {
+    "empty": "No projects yet",
+    "viewProject": "View Project",
+    "categories": {
+      "all": "All",
+      "tools": "Tools",
+      "apps": "Apps",
+      "toys": "Toys",
+      "plugins": "Plugins",
+      "experiments": "Experiments",
+      "other": "Other"
+    },
     "common": {
       "copy": "Copy",
       "input": "Input",

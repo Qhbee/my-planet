@@ -21,6 +21,17 @@
     }
   },
   "projects": {
+    "empty": "暂无项目数据",
+    "viewProject": "查看项目",
+    "categories": {
+      "all": "全部",
+      "tools": "工具",
+      "apps": "应用",
+      "toys": "玩具",
+      "plugins": "插件",
+      "experiments": "实验",
+      "other": "其他"
+    },
     "common": {
       "copy": "复制",
       "input": "输入",
