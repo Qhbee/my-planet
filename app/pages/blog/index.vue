@@ -1,8 +1,9 @@
 <script setup lang="ts">
 const { locale } = useI18n()
-const { data: page } = await useAsyncData('blog-page', () => {
-  return queryCollection(`pages_${locale.value}`).path(`/${locale.value}/blog`).first()
-})
+const { data: page } = await useAsyncData(
+  () => `blog-page-${locale.value}`,
+  () => queryCollection(`pages_${locale.value}`).path(`/${locale.value}/blog`).first()
+)
 if (!page.value) {
   throw createError({
     statusCode: 404,
@@ -10,8 +11,9 @@ if (!page.value) {
     fatal: true
   })
 }
-const { data: posts } = await useAsyncData('blogs', () =>
-  queryCollection(`blog_${locale.value}`).order('date', 'DESC').all()
+const { data: posts } = await useAsyncData(
+  () => `blogs-${locale.value}`,
+  () => queryCollection(`blog_${locale.value}`).order('date', 'DESC').all()
 )
 if (!posts.value) {
   throw createError({

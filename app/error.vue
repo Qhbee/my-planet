@@ -23,21 +23,16 @@ useSeoMeta({
 })
 
 const [{ data: navigation }, { data: files }] = await Promise.all([
-  useAsyncData('navigation', () => {
-    return Promise.all([
-      queryCollectionNavigation(`blog_${locale.value}`)
-    ])
-  }, {
-    transform: data => data.flat()
-  }),
-  useLazyAsyncData('search', () => {
-    return Promise.all([
-      queryCollectionSearchSections(`blog_${locale.value}`)
-    ])
-  }, {
-    server: false,
-    transform: data => data.flat()
-  })
+  useAsyncData(
+    () => `navigation-${locale.value}`,
+    () => Promise.all([queryCollectionNavigation(`blog_${locale.value}`)]),
+    { transform: data => data.flat(), watch: [locale] }
+  ),
+  useLazyAsyncData(
+    () => `search-${locale.value}`,
+    () => Promise.all([queryCollectionSearchSections(`blog_${locale.value}`)]),
+    { server: false, transform: data => data.flat(), watch: [locale] }
+  )
 ])
 
 const localizedNavLinks = computed(() =>

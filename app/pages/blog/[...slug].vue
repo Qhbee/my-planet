@@ -6,12 +6,14 @@ import { findPageBreadcrumb } from '@nuxt/content/utils'
 const route = useRoute()
 const { t, locale } = useI18n()
 
-const { data: page } = await useAsyncData(route.path, () =>
-  queryCollection(`blog_${locale.value}`).path(route.path).first()
+const { data: page } = await useAsyncData(
+  () => route.path,
+  () => queryCollection(`blog_${locale.value}`).path(route.path).first()
 )
 if (!page.value) throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
-const { data: surround } = await useAsyncData(`${route.path}-surround`, () =>
-  queryCollectionItemSurroundings(`blog_${locale.value}`, route.path, {
+const { data: surround } = await useAsyncData(
+  () => `${route.path}-surround`,
+  () => queryCollectionItemSurroundings(`blog_${locale.value}`, route.path, {
     fields: ['description']
   })
 )

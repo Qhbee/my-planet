@@ -27,9 +27,10 @@ const tabOrder: CategoryKey[] = ['all', 'tools', 'apps', 'toys', 'plugins', 'exp
 // -------------------------
 
 const { locale, t } = useI18n()
-const { data: page } = await useAsyncData('projects-page', () => {
-  return queryCollection(`pages_${locale.value}`).path(`/${locale.value}/projects`).first()
-})
+const { data: page } = await useAsyncData(
+  () => `projects-page-${locale.value}`,
+  () => queryCollection(`pages_${locale.value}`).path(`/${locale.value}/projects`).first()
+)
 
 if (!page.value) {
   throw createError({
@@ -39,9 +40,10 @@ if (!page.value) {
   })
 }
 
-const { data: projects } = await useAsyncData('projects', () => {
-  return queryCollection(`projects_${locale.value}`).all()
-})
+const { data: projects } = await useAsyncData(
+  () => `projects-${locale.value}`,
+  () => queryCollection(`projects_${locale.value}`).all()
+)
 
 // -------------------------
 // Tabs state (bind by key instead of index)

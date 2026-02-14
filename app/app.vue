@@ -32,21 +32,16 @@ const route = useRoute()
 const isIskraRoute = computed(() => String(route.path).includes('/projects/iskra'))
 
 const [{ data: navigation }, { data: files }] = await Promise.all([
-  useAsyncData('navigation', () => {
-    return Promise.all([
-      queryCollectionNavigation(`blog_${locale.value}`)
-    ])
-  }, {
-    transform: data => data.flat()
-  }),
-  useLazyAsyncData('search', () => {
-    return Promise.all([
-      queryCollectionSearchSections(`blog_${locale.value}`)
-    ])
-  }, {
-    server: false,
-    transform: data => data.flat()
-  })
+  useAsyncData(
+    () => `navigation-${locale.value}`,
+    () => Promise.all([queryCollectionNavigation(`blog_${locale.value}`)]),
+    { transform: data => data.flat() }
+  ),
+  useLazyAsyncData(
+    () => `search-${locale.value}`,
+    () => Promise.all([queryCollectionSearchSections(`blog_${locale.value}`)]),
+    { server: false, transform: data => data.flat() }
+  )
 ])
 
 const localizedNavLinks = computed(() =>
