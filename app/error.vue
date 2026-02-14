@@ -9,6 +9,7 @@ defineProps({
 })
 
 const { locale, t } = useI18n()
+const localePath = useLocalePath()
 
 useHead({
   htmlAttrs: {
@@ -38,6 +39,14 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
     transform: data => data.flat()
   })
 ])
+
+const localizedNavLinks = computed(() =>
+  navLinks.map(({ label, to, ...rest }) => ({
+    ...rest,
+    label: t(label!),
+    to: localePath(to!)
+  }))
+)
 </script>
 
 <template>
@@ -59,7 +68,7 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
         :files="files"
         shortcut="meta_k"
         :navigation="navigation"
-        :links="navLinks"
+        :links="localizedNavLinks"
         :fuse="{ resultLimit: 42 }"
       />
     </ClientOnly>

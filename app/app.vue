@@ -3,7 +3,8 @@ const colorMode = useColorMode()
 
 const color = computed(() => colorMode.value === 'dark' ? '#020618' : 'white')
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
+const localePath = useLocalePath()
 
 useHead({
   meta: [
@@ -47,6 +48,14 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
     transform: data => data.flat()
   })
 ])
+
+const localizedNavLinks = computed(() =>
+  navLinks.map(({ label, to, ...rest }) => ({
+    ...rest,
+    label: t(label!),
+    to: localePath(to!)
+  }))
+)
 </script>
 
 <template>
@@ -63,7 +72,7 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
         :files="files"
         :navigation="navigation"
         shortcut="meta_k"
-        :links="navLinks"
+        :links="localizedNavLinks"
         :fuse="{ resultLimit: 42 }"
       />
     </ClientOnly>
