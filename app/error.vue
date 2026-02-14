@@ -67,6 +67,7 @@ const localizedNavLinks = computed(() =>
       <LazyUContentSearch
         :files="files"
         shortcut="meta_k"
+        :placeholder="t('commandPalette.placeholder')"
         :navigation="navigation"
         :links="localizedNavLinks"
         :fuse="{ resultLimit: 42 }"

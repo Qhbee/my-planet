@@ -72,6 +72,7 @@ const localizedNavLinks = computed(() =>
         :files="files"
         :navigation="navigation"
         shortcut="meta_k"
+        :placeholder="t('commandPalette.placeholder')"
         :links="localizedNavLinks"
         :fuse="{ resultLimit: 42 }"
       />

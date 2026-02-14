@@ -11,6 +11,9 @@
       "description": "We are sorry but this page could not be found."
     }
   },
+  "commandPalette": {
+    "placeholder": "Type a command or search..."
+  },
   "home": {
     "blog": {
       "readArticle": "Read Article"

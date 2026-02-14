@@ -11,6 +11,9 @@
       "description": "抱歉，当前页面不存在。"
     }
   },
+  "commandPalette": {
+    "placeholder": "输入命令或搜索..."
+  },
   "home": {
     "blog": {
       "readArticle": "阅读文章"
