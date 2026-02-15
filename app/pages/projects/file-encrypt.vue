@@ -9,7 +9,6 @@ useSeoMeta({
   title: t('projects.fileEncrypt.seoTitle')
 })
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024
 const SCRYPT_SALT = new TextEncoder().encode('file-encrypt-steg-v1')
 const BITS_TAKEN_OPTIONS = [1, 2, 4]
 
@@ -75,10 +74,6 @@ const doEncrypt = async () => {
 
   if (!selectedFile.value) {
     encryptError.value = t('projects.fileEncrypt.uploadFile')
-    return
-  }
-  if (selectedFile.value.size > MAX_FILE_SIZE) {
-    encryptError.value = t('projects.fileEncrypt.fileTooBig')
     return
   }
   if (!password.value) {
@@ -275,6 +270,9 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               <div class="text-sm font-medium mb-2">
                 {{ t('projects.fileEncrypt.uploadFile') }}
               </div>
+              <p class="text-xs text-muted mb-2">
+                {{ t('projects.fileEncrypt.uploadFileHint') }}
+              </p>
               <label
                 class="flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 px-6 py-8 cursor-pointer transition-colors hover:border-primary-500 dark:hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-900/50"
                 :class="{ 'opacity-60 pointer-events-none': encryptLoading }"
