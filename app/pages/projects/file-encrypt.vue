@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { RawFile, StegImage } from 'steg'
 import { scryptAsync } from '@noble/hashes/scrypt.js'
 
@@ -22,6 +22,8 @@ const carrierInputRef = ref<HTMLInputElement | null>(null)
 const selectedFile = ref<File | null>(null)
 const carrierSource = ref<'preset' | 'custom'>('preset')
 const selectedCarrierId = ref<string>('1')
+const customCarrierFile = ref<File | null>(null)
+const carrierDimensions = ref<{ w: number, h: number } | null>(null)
 const password = ref('')
 const bitsTaken = ref(1)
 const encryptLoading = ref(false)
@@ -38,9 +40,9 @@ const extractedFile = ref<RawFile | null>(null)
 
 // Preset carriers: URLs that we fetch to get bytes (avoids CORS canvas tainting)
 const presetCarriers = [
-  { id: '1', url: 'https://placehold.co/4000x4000/1e3a5f/94a3b8.png', label: '1' },
-  { id: '2', url: 'https://placehold.co/4000x4000/334155/64748b.png', label: '2' },
-  { id: '3', url: 'https://placehold.co/4000x4000/475569/94a3b8.png', label: '3' }
+  { id: '1', url: 'https://placehold.co/4000x4000/1e3a5f/94a3b8.png', label: '1', w: 4000, h: 4000 },
+  { id: '2', url: 'https://placehold.co/4000x4000/334155/64748b.png', label: '2', w: 4000, h: 4000 },
+  { id: '3', url: 'https://placehold.co/4000x4000/475569/94a3b8.png', label: '3', w: 4000, h: 4000 }
 ]
 
 const deriveKey = async (pwd: string): Promise<Uint8Array> => {
@@ -54,8 +56,8 @@ const deriveKey = async (pwd: string): Promise<Uint8Array> => {
 }
 
 const loadCarrierAsBytes = async (): Promise<Uint8Array> => {
-  if (carrierSource.value === 'custom' && carrierInputRef.value?.files?.[0]) {
-    const f = carrierInputRef.value.files[0]
+  if (carrierSource.value === 'custom' && customCarrierFile.value) {
+    const f = customCarrierFile.value
     const ab = await f.arrayBuffer()
     return new Uint8Array(ab)
   }
@@ -181,9 +183,51 @@ const onStegoFileChange = (e: Event) => {
   stegoFile.value = input.files?.[0] ?? null
 }
 
-const onCarrierChange = () => {
+const onCarrierChange = (e: Event) => {
+  const input = e.target as HTMLInputElement
+  customCarrierFile.value = input.files?.[0] ?? null
   carrierSource.value = 'custom'
 }
+
+const calcUsableBytes = (w: number, h: number, bits: number) =>
+  Math.floor(((w * h - 1) * 3 * bits) / 8) - 41
+
+const loadImageDimensions = (file: File): Promise<{ w: number, h: number }> =>
+  new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file)
+    const img = new Image()
+    img.onload = () => {
+      resolve({ w: img.naturalWidth, h: img.naturalHeight })
+      URL.revokeObjectURL(url)
+    }
+    img.onerror = () => {
+      URL.revokeObjectURL(url)
+      reject(new Error('Failed to load image'))
+    }
+    img.src = url
+  })
+
+watch([carrierSource, selectedCarrierId, customCarrierFile], async () => {
+  carrierDimensions.value = null
+  if (carrierSource.value === 'preset') {
+    const c = presetCarriers.find(x => x.id === selectedCarrierId.value)
+    if (c) carrierDimensions.value = { w: c.w, h: c.h }
+  } else if (customCarrierFile.value) {
+    try {
+      carrierDimensions.value = await loadImageDimensions(customCarrierFile.value)
+    } catch {
+      carrierDimensions.value = null
+    }
+  }
+}, { immediate: true })
+
+const capacityHint = computed(() => {
+  const d = carrierDimensions.value
+  if (!d) return null
+  const bits = Number(bitsTaken.value) || 1
+  const bytes = calcUsableBytes(d.w, d.h, bits)
+  return t('projects.fileEncrypt.capacityHint', { size: formatSize(bytes) })
+})
 
 const formatSize = (bytes: number) => {
   const KB = 1024
@@ -216,7 +260,10 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
       </div>
 
       <!-- Encrypt -->
-      <div v-if="mode === 'encrypt'" class="space-y-6">
+      <div
+        v-if="mode === 'encrypt'"
+        class="space-y-6"
+      >
         <UCard>
           <template #header>
             <div class="font-semibold">
@@ -234,7 +281,10 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
                 @dragover.prevent
                 @drop.prevent="onFileDrop"
               >
-                <UIcon name="i-lucide-upload" class="size-8 text-muted" />
+                <UIcon
+                  name="i-lucide-upload"
+                  class="size-8 text-muted"
+                />
                 <input
                   ref="fileInputRef"
                   type="file"
@@ -295,15 +345,29 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               <div class="text-sm font-medium mb-2">
                 {{ t('projects.fileEncrypt.bitsTaken') }}
               </div>
-              <USelect
-                v-model="bitsTaken"
-                :items="BITS_TAKEN_OPTIONS.map(v => ({ label: String(v), value: v }))"
-                class="w-24"
-              />
+              <div class="flex flex-wrap items-center gap-2">
+                <USelect
+                  v-model="bitsTaken"
+                  :items="BITS_TAKEN_OPTIONS.map(v => ({ label: String(v), value: v }))"
+                  class="w-24"
+                />
+                <span
+                  v-if="capacityHint"
+                  class="text-sm text-muted"
+                >
+                  {{ capacityHint }}
+                </span>
+              </div>
             </div>
 
-            <div v-if="encryptLoading" class="flex items-center gap-2 rounded-lg bg-primary-500/10 dark:bg-primary-500/20 px-4 py-3 text-sm text-primary-600 dark:text-primary-400">
-              <UIcon name="i-lucide-loader-2" class="size-4 animate-spin" />
+            <div
+              v-if="encryptLoading"
+              class="flex items-center gap-2 rounded-lg bg-primary-500/10 dark:bg-primary-500/20 px-4 py-3 text-sm text-primary-600 dark:text-primary-400"
+            >
+              <UIcon
+                name="i-lucide-loader-2"
+                class="size-4 animate-spin"
+              />
               {{ t('projects.fileEncrypt.processing') }}
             </div>
 
@@ -315,11 +379,17 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               {{ t('projects.fileEncrypt.generate') }}
             </UButton>
 
-            <div v-if="encryptError" class="text-sm text-red-600 dark:text-red-400">
+            <div
+              v-if="encryptError"
+              class="text-sm text-red-600 dark:text-red-400"
+            >
               {{ encryptError }}
             </div>
 
-            <div v-if="stegoImageUrl" class="space-y-2">
+            <div
+              v-if="stegoImageUrl"
+              class="space-y-2"
+            >
               <p class="text-sm text-muted">
                 {{ t('projects.fileEncrypt.downloadImage') }}
               </p>
@@ -340,7 +410,10 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
       </div>
 
       <!-- Decrypt -->
-      <div v-else class="space-y-6">
+      <div
+        v-else
+        class="space-y-6"
+      >
         <UCard>
           <template #header>
             <div class="font-semibold">
@@ -358,7 +431,10 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
                 @dragover.prevent
                 @drop.prevent="onStegoDrop"
               >
-                <UIcon name="i-lucide-image" class="size-8 text-muted" />
+                <UIcon
+                  name="i-lucide-image"
+                  class="size-8 text-muted"
+                />
                 <input
                   ref="stegoInputRef"
                   type="file"
@@ -384,8 +460,14 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               />
             </div>
 
-            <div v-if="decryptLoading" class="flex items-center gap-2 rounded-lg bg-primary-500/10 dark:bg-primary-500/20 px-4 py-3 text-sm text-primary-600 dark:text-primary-400">
-              <UIcon name="i-lucide-loader-2" class="size-4 animate-spin" />
+            <div
+              v-if="decryptLoading"
+              class="flex items-center gap-2 rounded-lg bg-primary-500/10 dark:bg-primary-500/20 px-4 py-3 text-sm text-primary-600 dark:text-primary-400"
+            >
+              <UIcon
+                name="i-lucide-loader-2"
+                class="size-4 animate-spin"
+              />
               {{ t('projects.fileEncrypt.processing') }}
             </div>
 
@@ -397,11 +479,17 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               {{ t('projects.fileEncrypt.extract') }}
             </UButton>
 
-            <div v-if="decryptError" class="text-sm text-red-600 dark:text-red-400">
+            <div
+              v-if="decryptError"
+              class="text-sm text-red-600 dark:text-red-400"
+            >
               {{ decryptError }}
             </div>
 
-            <div v-if="extractedFile" class="space-y-2">
+            <div
+              v-if="extractedFile"
+              class="space-y-2"
+            >
               <p class="text-sm text-muted">
                 {{ extractedFile.name }} ({{ formatSize(extractedFile.size) }})
               </p>

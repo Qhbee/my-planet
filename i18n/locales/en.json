@@ -84,7 +84,8 @@
       "fileTooBig": "File exceeds carrier capacity",
       "invalidImage": "Please upload a valid PNG image",
       "clickOrDrop": "Click to select or drag file here",
-      "processing": "Processing… large files may take several seconds"
+      "processing": "Processing… large files may take several seconds",
+      "capacityHint": "Max capacity ~{size}"
     }
   },
   "blog": {
