@@ -93,7 +93,8 @@ const doEncrypt = async () => {
   try {
     const carrierBytes = await loadCarrierAsBytes()
     const stegImg = await StegImage.fromBytesOrURL(carrierBytes)
-    const capacity = stegImg.calcCapacity(bitsTaken.value)
+    const bits = Number(bitsTaken.value) || 1
+    const capacity = stegImg.calcCapacity(bits)
 
     // Account for encryption overhead (~41 bytes)
     const usableBytes = capacity.bytes - 41
@@ -111,7 +112,7 @@ const doEncrypt = async () => {
     const ab = await file.arrayBuffer()
     const rawFile = new RawFile(new Uint8Array(ab), file.name)
     const key = await deriveKey(password.value)
-    const url = await stegImg.hide(rawFile, key, bitsTaken.value)
+    const url = await stegImg.hide(rawFile, key, bits)
     stegoImageUrl.value = url
   } catch (e) {
     encryptError.value = e instanceof Error ? e.message : String(e)
@@ -296,7 +297,7 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               </div>
               <USelect
                 v-model="bitsTaken"
-                :options="BITS_TAKEN_OPTIONS.map(v => ({ label: String(v), value: v }))"
+                :items="BITS_TAKEN_OPTIONS.map(v => ({ label: String(v), value: v }))"
                 class="w-24"
               />
             </div>
