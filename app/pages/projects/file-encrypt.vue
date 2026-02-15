@@ -229,6 +229,7 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               </div>
               <label
                 class="flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 px-6 py-8 cursor-pointer transition-colors hover:border-primary-500 dark:hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-900/50"
+                :class="{ 'opacity-60 pointer-events-none': encryptLoading }"
                 @dragover.prevent
                 @drop.prevent="onFileDrop"
               >
@@ -300,6 +301,11 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               />
             </div>
 
+            <div v-if="encryptLoading" class="flex items-center gap-2 rounded-lg bg-primary-500/10 dark:bg-primary-500/20 px-4 py-3 text-sm text-primary-600 dark:text-primary-400">
+              <UIcon name="i-lucide-loader-2" class="size-4 animate-spin" />
+              {{ t('projects.fileEncrypt.processing') }}
+            </div>
+
             <UButton
               :disabled="!canEncrypt"
               :loading="encryptLoading"
@@ -347,6 +353,7 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               </div>
               <label
                 class="flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 px-6 py-8 cursor-pointer transition-colors hover:border-primary-500 dark:hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-900/50"
+                :class="{ 'opacity-60 pointer-events-none': decryptLoading }"
                 @dragover.prevent
                 @drop.prevent="onStegoDrop"
               >
@@ -374,6 +381,11 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
                 autocomplete="current-password"
                 :placeholder="t('projects.fileEncrypt.password')"
               />
+            </div>
+
+            <div v-if="decryptLoading" class="flex items-center gap-2 rounded-lg bg-primary-500/10 dark:bg-primary-500/20 px-4 py-3 text-sm text-primary-600 dark:text-primary-400">
+              <UIcon name="i-lucide-loader-2" class="size-4 animate-spin" />
+              {{ t('projects.fileEncrypt.processing') }}
             </div>
 
             <UButton
