@@ -82,7 +82,8 @@
       "extract": "提取文件",
       "downloadFile": "下载原文件",
       "fileTooBig": "文件超出该图片容量",
-      "invalidImage": "请上传有效的 PNG 图片"
+      "invalidImage": "请上传有效的 PNG 图片",
+      "clickOrDrop": "点击选择或拖拽文件到此处"
     }
   },
   "blog": {

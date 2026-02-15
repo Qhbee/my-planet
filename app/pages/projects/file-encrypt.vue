@@ -102,13 +102,14 @@ const doEncrypt = async () => {
       return
     }
 
-    const fileInput = fileInputRef.value
-    if (!fileInput?.files?.[0]) {
+    const file = selectedFile.value ?? fileInputRef.value?.files?.[0]
+    if (!file) {
       encryptError.value = t('projects.fileEncrypt.uploadFile')
       return
     }
 
-    const rawFile = await RawFile.fromFileInput(fileInput)
+    const ab = await file.arrayBuffer()
+    const rawFile = new RawFile(new Uint8Array(ab), file.name)
     const key = await deriveKey(password.value)
     const url = await stegImg.hide(rawFile, key, bitsTaken.value)
     stegoImageUrl.value = url
@@ -164,6 +165,16 @@ const onFileChange = (e: Event) => {
   selectedFile.value = input.files?.[0] ?? null
 }
 
+const onFileDrop = (e: DragEvent) => {
+  const file = e.dataTransfer?.files?.[0]
+  if (file) selectedFile.value = file
+}
+
+const onStegoDrop = (e: DragEvent) => {
+  const file = e.dataTransfer?.files?.[0]
+  if (file && file.type === 'image/png') stegoFile.value = file
+}
+
 const onStegoFileChange = (e: Event) => {
   const input = e.target as HTMLInputElement
   stegoFile.value = input.files?.[0] ?? null
@@ -216,16 +227,23 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               <div class="text-sm font-medium mb-2">
                 {{ t('projects.fileEncrypt.uploadFile') }}
               </div>
-              <input
-                ref="fileInputRef"
-                type="file"
-                accept="*"
-                class="block w-full text-sm"
-                @change="onFileChange"
+              <label
+                class="flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 px-6 py-8 cursor-pointer transition-colors hover:border-primary-500 dark:hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-900/50"
+                @dragover.prevent
+                @drop.prevent="onFileDrop"
               >
-              <p v-if="selectedFile" class="mt-1 text-xs text-muted">
-                {{ selectedFile.name }} ({{ formatSize(selectedFile.size) }})
-              </p>
+                <UIcon name="i-lucide-upload" class="size-8 text-muted" />
+                <input
+                  ref="fileInputRef"
+                  type="file"
+                  accept="*"
+                  class="sr-only"
+                  @change="onFileChange"
+                >
+                <span class="text-sm text-muted">
+                  {{ selectedFile ? selectedFile.name + ' (' + formatSize(selectedFile.size) + ')' : t('projects.fileEncrypt.clickOrDrop') }}
+                </span>
+              </label>
             </div>
 
             <div>
@@ -327,16 +345,23 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
               <div class="text-sm font-medium mb-2">
                 {{ t('projects.fileEncrypt.uploadStegoImage') }}
               </div>
-              <input
-                ref="stegoInputRef"
-                type="file"
-                accept="image/png"
-                class="block w-full text-sm"
-                @change="onStegoFileChange"
+              <label
+                class="flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 px-6 py-8 cursor-pointer transition-colors hover:border-primary-500 dark:hover:border-primary-500 hover:bg-gray-50 dark:hover:bg-gray-900/50"
+                @dragover.prevent
+                @drop.prevent="onStegoDrop"
               >
-              <p v-if="stegoFile" class="mt-1 text-xs text-muted">
-                {{ stegoFile.name }}
-              </p>
+                <UIcon name="i-lucide-image" class="size-8 text-muted" />
+                <input
+                  ref="stegoInputRef"
+                  type="file"
+                  accept="image/png"
+                  class="sr-only"
+                  @change="onStegoFileChange"
+                >
+                <span class="text-sm text-muted">
+                  {{ stegoFile ? stegoFile.name : t('projects.fileEncrypt.clickOrDrop') }}
+                </span>
+              </label>
             </div>
 
             <div>

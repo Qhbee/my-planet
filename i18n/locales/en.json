@@ -82,7 +82,8 @@
       "extract": "Extract file",
       "downloadFile": "Download original file",
       "fileTooBig": "File exceeds carrier capacity",
-      "invalidImage": "Please upload a valid PNG image"
+      "invalidImage": "Please upload a valid PNG image",
+      "clickOrDrop": "Click to select or drag file here"
     }
   },
   "blog": {
