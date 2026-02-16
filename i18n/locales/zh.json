@@ -74,6 +74,7 @@
       "uploadFile": "上传文件",
       "uploadFileHint": "建议不超过 carrier 容量，过大会无法嵌入",
       "selectCarrier": "选择 carrier 图片",
+      "carrierPreview": "预览",
       "uploadCarrier": "自定义上传",
       "password": "密码",
       "bitsTaken": "隐写位数（1 更隐蔽）",

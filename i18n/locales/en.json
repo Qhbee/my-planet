@@ -74,6 +74,7 @@
       "uploadFile": "Upload file",
       "uploadFileHint": "Keep under carrier capacity; larger files cannot be embedded",
       "selectCarrier": "Select carrier image",
+      "carrierPreview": "Preview",
       "uploadCarrier": "Upload custom",
       "password": "Password",
       "bitsTaken": "Bits per channel (1 = stealthier)",

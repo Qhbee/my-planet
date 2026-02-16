@@ -239,6 +239,42 @@ const canEncrypt = computed(() => {
 })
 
 const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
+
+// Carrier preview URL (preset or custom object URL)
+const carrierPreviewUrl = computed(() => {
+  if (carrierSource.value === 'preset') {
+    const c = presetCarriers.find(x => x.id === selectedCarrierId.value)
+    return c?.url ?? null
+  }
+  if (customCarrierFile.value) {
+    return customCarrierUrl.value
+  }
+  return null
+})
+
+// Object URL for custom carrier (cleaned up in watch)
+const customCarrierUrl = ref<string | null>(null)
+watch(customCarrierFile, (file) => {
+  if (customCarrierUrl.value) {
+    URL.revokeObjectURL(customCarrierUrl.value)
+    customCarrierUrl.value = null
+  }
+  if (file) {
+    customCarrierUrl.value = URL.createObjectURL(file)
+  }
+}, { immediate: true })
+
+// Object URL for stego file preview (cleaned up in watch)
+const stegoPreviewUrl = ref<string | null>(null)
+watch(stegoFile, (file) => {
+  if (stegoPreviewUrl.value) {
+    URL.revokeObjectURL(stegoPreviewUrl.value)
+    stegoPreviewUrl.value = null
+  }
+  if (file) {
+    stegoPreviewUrl.value = URL.createObjectURL(file)
+  }
+}, { immediate: true })
 </script>
 
 <template>
@@ -323,6 +359,20 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
                   accept="image/png"
                   class="hidden"
                   @change="onCarrierChange"
+                >
+              </div>
+              <div
+                v-if="carrierPreviewUrl"
+                class="mt-3"
+              >
+                <p class="text-xs text-muted mb-1">
+                  {{ t('projects.fileEncrypt.carrierPreview') }}
+                </p>
+                <img
+                  :src="carrierPreviewUrl"
+                  alt="Carrier preview"
+                  class="max-w-full max-h-48 rounded-lg border border-gray-300 dark:border-gray-600 object-contain"
+                  style="max-width: 280px;"
                 >
               </div>
             </div>
@@ -429,10 +479,26 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
                 @dragover.prevent
                 @drop.prevent="onStegoDrop"
               >
-                <UIcon
-                  name="i-lucide-image"
-                  class="size-8 text-muted"
-                />
+                <template v-if="stegoPreviewUrl">
+                  <img
+                    :src="stegoPreviewUrl"
+                    alt="Stego preview"
+                    class="max-w-full max-h-20 rounded object-contain"
+                    style="max-width: 120px;"
+                  >
+                  <span class="text-sm text-muted">
+                    {{ stegoFile?.name }}
+                  </span>
+                </template>
+                <template v-else>
+                  <UIcon
+                    name="i-lucide-image"
+                    class="size-8 text-muted"
+                  />
+                  <span class="text-sm text-muted">
+                    {{ t('projects.fileEncrypt.clickOrDrop') }}
+                  </span>
+                </template>
                 <input
                   ref="stegoInputRef"
                   type="file"
@@ -440,9 +506,6 @@ const canDecrypt = computed(() => stegoFile.value && decryptPassword.value)
                   class="sr-only"
                   @change="onStegoFileChange"
                 >
-                <span class="text-sm text-muted">
-                  {{ stegoFile ? stegoFile.name : t('projects.fileEncrypt.clickOrDrop') }}
-                </span>
               </label>
             </div>
 
