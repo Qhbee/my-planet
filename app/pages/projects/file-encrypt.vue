@@ -39,9 +39,10 @@ const extractedFile = ref<RawFile | null>(null)
 
 // Preset carriers: URLs that we fetch to get bytes (avoids CORS canvas tainting)
 const presetCarriers = [
-  { id: '1', url: 'https://placehold.co/4000x4000/1e3a5f/94a3b8.png', label: '1', w: 4000, h: 4000 },
-  { id: '2', url: 'https://placehold.co/4000x4000/334155/64748b.png', label: '2', w: 4000, h: 4000 },
-  { id: '3', url: 'https://placehold.co/4000x4000/475569/94a3b8.png', label: '3', w: 4000, h: 4000 }
+  { id: '1', url: 'https://placehold.co/1600x900/black/white.png', label: 'HD+', w: 1600, h: 900 },
+  { id: '2', url: 'https://placehold.co/1920x1080/black/white.png', label: '1080p', w: 1920, h: 1080 },
+  { id: '3', url: '/projects/file-encrypt/4K.png', label: '4K', w: 3840, h: 2160 },
+  { id: '4', url: '/projects/file-encrypt/8K.png', label: '8K', w: 7680, h: 4320 }
 ]
 
 const deriveKey = async (pwd: string): Promise<Uint8Array> => {
