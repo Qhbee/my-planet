@@ -38,11 +38,18 @@ const decryptError = ref('')
 const extractedFile = ref<RawFile | null>(null)
 
 // Preset carriers: URLs that we fetch to get bytes (avoids CORS canvas tainting)
+// labelKey: i18n key under projects.fileEncrypt.carrier*
 const presetCarriers = [
-  { id: '1', url: 'https://placehold.co/1600x900/black/white.png', label: 'HD+', w: 1600, h: 900 },
-  { id: '2', url: 'https://placehold.co/1920x1080/black/white.png', label: '1080p', w: 1920, h: 1080 },
-  { id: '3', url: '/projects/file-encrypt/4K.png', label: '4K', w: 3840, h: 2160 },
-  { id: '4', url: '/projects/file-encrypt/8K.png', label: '8K', w: 7680, h: 4320 }
+  { id: '1', url: 'https://placehold.co/1600x900/black/white.png', labelKey: 'carrierHd', w: 1600, h: 900 },
+  { id: '2', url: 'https://placehold.co/1920x1080/black/white.png', labelKey: 'carrier1080p', w: 1920, h: 1080 },
+  { id: '3', url: '/projects/file-encrypt/4K.png', labelKey: 'carrier4k', w: 3840, h: 2160 },
+  { id: '4', url: '/projects/file-encrypt/8K.png', labelKey: 'carrier8k', w: 7680, h: 4320 },
+  { id: '5', url: '/projects/file-encrypt/pikachu.png', labelKey: 'carrierPikachu', w: 2976, h: 1984 },
+  { id: '6', url: '/projects/file-encrypt/flower.png', labelKey: 'carrierFlower', w: 3840, h: 2160 },
+  { id: '7', url: '/projects/file-encrypt/dog.png', labelKey: 'carrierDog', w: 4000, h: 3000 },
+  { id: '8', url: '/projects/file-encrypt/flag.png', labelKey: 'carrierFlag', w: 4349, h: 3139 },
+  { id: '9', url: '/projects/file-encrypt/night.png', labelKey: 'carrierNight', w: 4742, h: 3156 },
+  { id: '10', url: '/projects/file-encrypt/city.png', labelKey: 'carrierCity', w: 6240, h: 3512 }
 ]
 
 const deriveKey = async (pwd: string): Promise<Uint8Array> => {
@@ -345,7 +352,7 @@ watch(stegoFile, (file) => {
                   size="sm"
                   @click="carrierSource = 'preset'; selectedCarrierId = c.id"
                 >
-                  {{ c.label }}
+                  {{ t('projects.fileEncrypt.' + c.labelKey) }}
                 </UButton>
                 <UButton
                   :variant="carrierSource === 'custom' ? 'solid' : 'soft'"

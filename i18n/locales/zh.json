@@ -87,7 +87,17 @@
       "invalidImage": "请上传有效的 PNG 图片",
       "clickOrDrop": "点击选择或拖拽文件到此处",
       "processing": "处理中，大文件可能需要几秒钟…",
-      "capacityHint": "最多可隐藏约 {size}"
+      "capacityHint": "最多可隐藏约 {size}",
+      "carrierHd": "HD+",
+      "carrier1080p": "1080p",
+      "carrier4k": "4K",
+      "carrier8k": "8K",
+      "carrierPikachu": "皮卡丘",
+      "carrierFlower": "花朵",
+      "carrierDog": "小狗",
+      "carrierFlag": "旗帜",
+      "carrierNight": "夜景",
+      "carrierCity": "城市"
     }
   },
   "blog": {

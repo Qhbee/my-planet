@@ -87,7 +87,17 @@
       "invalidImage": "Please upload a valid PNG image",
       "clickOrDrop": "Click to select or drag file here",
       "processing": "Processing… large files may take several seconds",
-      "capacityHint": "Max capacity ~{size}"
+      "capacityHint": "Max capacity ~{size}",
+      "carrierHd": "HD+",
+      "carrier1080p": "1080p",
+      "carrier4k": "4K",
+      "carrier8k": "8K",
+      "carrierPikachu": "Pikachu",
+      "carrierFlower": "Flower",
+      "carrierDog": "Dog",
+      "carrierFlag": "Flag",
+      "carrierNight": "Night",
+      "carrierCity": "City"
     }
   },
   "blog": {
