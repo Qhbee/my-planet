@@ -32,11 +32,11 @@ export default defineOAuthGitHubEventHandler({
 
     await setUserSession(event, { user: user as User })
 
-    return sendRedirect(event, '/')
+    return sendRedirect(event, '/auth/success')
   },
   // Optional, will return a json error and 401 status code by default
   onError(event, error) {
     console.error('GitHub OAuth error:', error)
-    return sendRedirect(event, '/')
+    return sendRedirect(event, '/auth/error')
   }
 })

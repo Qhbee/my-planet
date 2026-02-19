@@ -1,4 +1,10 @@
 {
+  "auth": {
+    "successTitle": "认证成功",
+    "successMessage": "窗口即将关闭…",
+    "errorTitle": "登录失败",
+    "errorMessage": "请稍后重试，窗口即将关闭…"
+  },
   "nav": {
     "home": "首页",
     "projects": "项目",

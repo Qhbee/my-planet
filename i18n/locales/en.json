@@ -1,4 +1,10 @@
 {
+  "auth": {
+    "successTitle": "Authentication successful",
+    "successMessage": "Window will close shortly…",
+    "errorTitle": "Login failed",
+    "errorMessage": "Please try again later. Window will close shortly…"
+  },
   "nav": {
     "home": "Home",
     "projects": "Projects",
