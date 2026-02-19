@@ -13,6 +13,9 @@ node_modules
 logs
 *.log
 
+# Drive storage (user uploads)
+server/storage
+
 # Misc
 .DS_Store
 .fleet

@@ -28,8 +28,11 @@ useSeoMeta({
 })
 
 const route = useRoute()
-/** Iskra 使用自己的 layout（UDashboardGroup），不需要 UMain，否则主内容区会偏左、右侧空白 */
-const isIskraRoute = computed(() => String(route.path).includes('/projects/iskra'))
+/** Iskra / Drive 等使用 UDashboardGroup 的 layout，不需要 UMain */
+const usesDashboardLayout = computed(() => {
+  const p = String(route.path)
+  return p.includes('/projects/iskra') || p.includes('/projects/drive')
+})
 
 const [{ data: navigation }, { data: files }] = await Promise.all([
   useAsyncData(
@@ -56,7 +59,10 @@ const localizedNavLinks = computed(() =>
 <template>
   <UApp>
     <NuxtLayout>
-      <UMain v-if="!isIskraRoute" class="relative">
+      <UMain
+        v-if="!usesDashboardLayout"
+        class="relative"
+      >
         <NuxtPage />
       </UMain>
       <NuxtPage v-else />
