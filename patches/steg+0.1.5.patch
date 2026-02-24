@@ -1,0 +1,74 @@
+diff --git a/index.ts b/index.ts
+index 1b83ebd..e33d675 100644
+--- a/index.ts
++++ b/index.ts
+@@ -79,10 +79,16 @@ export class RawFile {
+       if (!file) return reject();
+       const reader = new FileReader();
+       reader.addEventListener('load', () => {
+-        let res = reader.result;
+-        if (typeof res === 'string') res = utils.utf8ToBytes(res);
+-        if (!res) return reject(new Error('No file'));
+-        resolve(new RawFile(new Uint8Array(res), file.name));
++        const res = reader.result;
++        let data: Uint8Array;
++        if (typeof res === 'string') {
++          data = utils.utf8ToBytes(res);
++        } else if (res instanceof ArrayBuffer) {
++          data = new Uint8Array(res);
++        } else {
++          return reject(new Error('No file'));
++        }
++        resolve(new RawFile(data, file.name));
+       });
+       reader.addEventListener('error', reject);
+       reader.readAsArrayBuffer(file);
+@@ -267,7 +273,7 @@ export class StegImage {
+       );
+     let channelId = 0; // first channel of second pixel
+     function writeChannel(data: number, bits = bitsTaken) {
+-      const curr = channels[channelId];
++      const curr = channels[channelId] ?? 0;
+       channels[channelId++] = clearBits(curr, bits) | data;
+       // alpha channel is always black, skip
+       // TODO: 256 is 0, maybe we need 255?
+@@ -291,7 +297,7 @@ export class StegImage {
+     let bufBits = 0;
+     // Start hiding the data
+     for (let byte = 0; byte < hData.length; byte++) {
+-      let hiddenDataByte = hData[byte];
++      let hiddenDataByte = hData[byte] ?? 0;
+       // Iterate through byte bits
+       for (let bit = 0; bit < 8; bit++) {
+         // buf.push(bit)
+@@ -370,9 +376,9 @@ export class StegImage {
+   // Can throw
+   revealBitsTaken(): number {
+     const channels = this.imageData.data;
+-    const bit0 = readBit(channels[0], 7) << 2;
+-    const bit1 = readBit(channels[1], 7) << 1;
+-    const bit2 = readBit(channels[2], 7);
++    const bit0 = readBit(channels[0] ?? 0, 7) << 2;
++    const bit1 = readBit(channels[1] ?? 0, 7) << 1;
++    const bit2 = readBit(channels[2] ?? 0, 7);
+     // 0 represents 1 bitsTaken, 7 represents 8.
+     const bitsTaken = 1 + (bit0 | bit1 | bit2);
+     validateBits(bitsTaken);
+@@ -393,7 +399,7 @@ export class StegImage {
+       // skip alpha channel
+       if (isAlpha(channelId)) channelId++;
+       // read bitsTaken bits from current channel into buffer
+-      buf = (buf << bitsTaken) | (channels[channelId] & mask);
++      buf = (buf << bitsTaken) | (channels[channelId] ?? 0 & mask);
+       bufBits += bitsTaken;
+       // If buffer has at least 8 bits, we can create byte from them
+       if (bufBits >= 8) {
+@@ -417,7 +423,7 @@ export const utils = {
+     return new TextDecoder().decode(bytes);
+   },
+   bytesToURL(bytes: Uint8Array) {
+-    return URL.createObjectURL(new Blob([bytes]));
++    return URL.createObjectURL(new Blob([bytes as BlobPart]));
+   },
+   setImageSource(el: HTMLImageElement, url: string, revoke = false): Promise<void> {
+     return new Promise((resolve) => {

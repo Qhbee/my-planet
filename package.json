@@ -37,6 +37,10 @@
     "steg": "^0.1.5",
     "zod": "^3.24.0"
   },
+  "patchedDependencies": {
+    "micro-aes-gcm@0.3.3": "patches/micro-aes-gcm+0.3.3.patch",
+    "steg@0.1.5": "patches/steg+0.1.5.patch"
+  },
   "devDependencies": {
     "@nuxt/eslint": "^1.12.1",
     "@types/better-sqlite3": "^7.6.11",
