@@ -9,7 +9,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "node scripts/patch-typecheck-deps.mjs && nuxt typecheck"
   },
   "dependencies": {
     "@ai-sdk/gateway": "^3.0.4",
