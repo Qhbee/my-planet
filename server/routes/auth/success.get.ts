@@ -17,7 +17,7 @@ function getLocale(event: import('h3').H3Event): string {
  */
 export default defineEventHandler((event) => {
   const locale = getLocale(event)
-  const { title, message } = AUTH_SUCCESS_I18N[locale] ?? AUTH_SUCCESS_I18N.en
+  const { title, message } = (AUTH_SUCCESS_I18N[locale] ?? AUTH_SUCCESS_I18N.en)!
 
   const html = `<!DOCTYPE html>
 <html>

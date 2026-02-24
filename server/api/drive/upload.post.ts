@@ -61,7 +61,7 @@ export default defineEventHandler(async (event) => {
   const normalizedBase = basePath === '/' ? '' : basePath.replace(/\/$/, '')
 
   for (let i = 0; i < fileParts.length; i++) {
-    const { data, filename } = fileParts[i]
+    const { data, filename } = fileParts[i]!
     const relativePath = relativePaths[i] ?? filename
     const safePath = relativePath.replace(/\\/g, '/').replace(/^\/+/, '').replace(/\.\./g, '')
     const fullPath = normalizedBase ? `/${normalizedBase}/${safePath}` : `/${safePath}`
