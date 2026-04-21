@@ -32,6 +32,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
 
   nitro: {
+    // 虽然默认就是 node-server，这里明确说明使用 Node 服务端（OAuth /api、Drive、Iskra 等），减少歧义。
+    // 在部分构建失败场景下 .output/nitro.json 会停留在 prerender 阶段，导致 `nuxt preview` 变成 `npx serve ./public` 纯静态，登录路由全部失效。
+    preset: 'node-server',
     alias: {
       '#db': join(rootDir, 'server/utils/db')
     },
