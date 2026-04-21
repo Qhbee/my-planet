@@ -1,12 +1,12 @@
 import Database from 'better-sqlite3'
 import { mkdirSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname } from 'node:path'
+import { useRuntimeConfig } from 'nitropack/runtime/internal/config'
 
 export default defineNitroPlugin(() => {
-  const root = process.cwd()
-  const dataDir = join(root, '.data')
-  mkdirSync(dataDir, { recursive: true })
-  const sqlite = new Database(join(dataDir, 'iskra.sqlite'))
+  const dbPath = String(useRuntimeConfig().sqlitePath)
+  mkdirSync(dirname(dbPath), { recursive: true })
+  const sqlite = new Database(dbPath)
   const statements = [
     `CREATE TABLE IF NOT EXISTS chats (
       id text PRIMARY KEY NOT NULL,

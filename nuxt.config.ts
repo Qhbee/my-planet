@@ -24,6 +24,11 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  // projects 下各 app 共用的本地库 SQLite 文件路径（与 cwd 无关）；线上可用 NUXT_SQLITE_PATH 覆盖。
+  runtimeConfig: {
+    sqlitePath: join(rootDir, '.data', 'apps.sqlite')
+  },
+
   alias: {
     // Server 内稳定引用 db，避免 Nitro 打包时相对路径解析失败
     '#db': join(rootDir, 'server/utils/db')
