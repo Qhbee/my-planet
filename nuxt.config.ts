@@ -68,5 +68,13 @@ export default defineNuxtConfig({
       alwaysRedirect: false, // 只有在没有 cookie 时才检测，用户手动切换后听用户的
       fallbackLocale: 'en' // 如果浏览器是其他不支持的语言，回退到英文
     }
+  },
+
+  // @nuxt/ui 内置 @nuxt/icon：避免本地图标解析慢或网络差时 1500ms 内未完成加载而刷屏 WARN
+  icon: {
+    fetchTimeout: 10000,
+    serverBundle: {
+      collections: ['lucide']
+    }
   }
 })
