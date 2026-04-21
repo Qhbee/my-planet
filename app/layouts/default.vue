@@ -1,14 +1,5 @@
 <script setup lang="ts">
-const { t } = useI18n()
-const localePath = useLocalePath()
-
-const localizedNavLinks = computed(() =>
-  navLinks.map(({ label, to, ...rest }) => ({
-    ...rest,
-    label: t(label!),
-    to: localePath(to!)
-  }))
-)
+const localizedNavLinks = useNavLinks()
 </script>
 
 <template>

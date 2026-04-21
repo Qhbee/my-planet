@@ -4,7 +4,7 @@ const colorMode = useColorMode()
 const color = computed(() => colorMode.value === 'dark' ? '#020618' : 'white')
 
 const { locale, t } = useI18n()
-const localePath = useLocalePath()
+const localizedNavLinks = useNavLinks()
 
 useHead({
   meta: [
@@ -46,14 +46,6 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
     { server: false, transform: data => data.flat() }
   )
 ])
-
-const localizedNavLinks = computed(() =>
-  navLinks.map(({ label, to, ...rest }) => ({
-    ...rest,
-    label: t(label!),
-    to: localePath(to!)
-  }))
-)
 </script>
 
 <template>

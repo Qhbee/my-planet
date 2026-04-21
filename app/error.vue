@@ -9,7 +9,7 @@ defineProps({
 })
 
 const { locale, t } = useI18n()
-const localePath = useLocalePath()
+const localizedNavLinks = useNavLinks()
 
 useHead({
   htmlAttrs: {
@@ -34,14 +34,6 @@ const [{ data: navigation }, { data: files }] = await Promise.all([
     { server: false, transform: data => data.flat(), watch: [locale] }
   )
 ])
-
-const localizedNavLinks = computed(() =>
-  navLinks.map(({ label, to, ...rest }) => ({
-    ...rest,
-    label: t(label!),
-    to: localePath(to!)
-  }))
-)
 </script>
 
 <template>
