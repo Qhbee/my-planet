@@ -46,7 +46,7 @@ const localizedNavLinks = computed(() =>
 
 <template>
   <div>
-    <AppHeader :links="navLinks" />
+    <AppHeader :links="localizedNavLinks" />
 
     <UMain>
       <UContainer>

@@ -5,6 +5,7 @@ import { findPageBreadcrumb } from '@nuxt/content/utils'
 
 const route = useRoute()
 const { t, locale } = useI18n()
+const localePath = useLocalePath()
 
 const { data: page } = await useAsyncData(
   () => route.path,
@@ -59,7 +60,7 @@ const formatDate = (dateString: string) => {
     <UContainer class="relative min-h-screen">
       <UPage v-if="page">
         <ULink
-          to="/blog"
+          :to="localePath('/blog')"
           class="text-sm flex items-center gap-1"
         >
           <UIcon name="lucide:chevron-left" />
