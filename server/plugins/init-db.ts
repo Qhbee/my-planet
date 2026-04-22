@@ -1,4 +1,4 @@
-import Database from 'better-sqlite3'
+import { Database } from 'bun:sqlite'
 import { mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'
 import { useRuntimeConfig } from 'nitropack/runtime/internal/config'
@@ -37,7 +37,7 @@ export default defineNitroPlugin(() => {
     `CREATE UNIQUE INDEX IF NOT EXISTS users_provider_id_idx ON users (provider, provider_id)`
   ]
   for (const sql of statements) {
-    sqlite.exec(sql)
+    sqlite.run(sql)
   }
-  sqlite.close()
+  sqlite.close(false)
 })
