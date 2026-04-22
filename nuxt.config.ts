@@ -37,6 +37,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
 
   nitro: {
+    // 关闭 Nitro 服务端 bundle 的 .map（与 vite.build.sourcemap 配合，避免重复产出调试映射）
+    sourceMap: false,
     // 默认是 node-server，这里明确说明改用 Bun 服务端（OAuth /api、Drive、Iskra 等），减少歧义。
     // 在部分构建失败场景下 .output/nitro.json 会停留在 prerender 阶段，导致 `nuxt preview` 变成 `npx serve ./public` 纯静态，登录路由全部失效。
     // preset: 'node-server',
@@ -51,6 +53,13 @@ export default defineNuxtConfig({
         '/zh'
       ],
       crawlLinks: true
+    }
+  },
+
+  // 生产构建不生成 source map：减少 Rollup 计算与磁盘写入；线上堆栈将指向打包后代码。
+  vite: {
+    build: {
+      sourcemap: false
     }
   },
 
