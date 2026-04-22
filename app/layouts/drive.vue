@@ -50,19 +50,27 @@ const driveBase = '/projects/drive'
       </template>
 
       <template #footer="{ collapsed }">
-        <DriveUserMenu
-          v-if="loggedIn"
-          :collapsed="collapsed"
-        />
-        <UButton
-          v-else
-          :label="collapsed ? '' : 'Login with GitHub'"
-          icon="i-simple-icons-github"
-          color="neutral"
-          variant="ghost"
-          class="w-full"
-          @click="openInPopup('/auth/github')"
-        />
+        <div class="flex w-full flex-col gap-0">
+          <div
+            v-if="!collapsed"
+            class="mb-3 border-t border-default/80 pt-3"
+          >
+            <DriveTagline />
+          </div>
+          <DriveUserMenu
+            v-if="loggedIn"
+            :collapsed="collapsed"
+          />
+          <UButton
+            v-else
+            :label="collapsed ? '' : 'Login with GitHub'"
+            icon="i-simple-icons-github"
+            color="neutral"
+            variant="ghost"
+            class="w-full"
+            @click="openInPopup('/auth/github')"
+          />
+        </div>
       </template>
     </UDashboardSidebar>
 

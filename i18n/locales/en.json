@@ -76,6 +76,11 @@
     "drive": {
       "seoTitle": "Maulwurf Vault",
       "title": "My Files",
+      "tagline": {
+        "quote": "Brav gewühlt, alter Maulwurf!",
+        "continuation": "Burrowing in the dark, until the dawn breaks.",
+        "dedication": "⸺ To Mohr, and to every fellow traveler."
+      },
       "root": "Root",
       "loading": "Loading…",
       "empty": "This folder is empty",

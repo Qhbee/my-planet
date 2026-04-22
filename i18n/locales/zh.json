@@ -76,6 +76,11 @@
     "drive": {
       "seoTitle": "老鼹鼠地库",
       "title": "我的文件",
+      "tagline": {
+        "quote": "Brav gewühlt, alter Maulwurf!",
+        "continuation": "在黑暗中掘进，直至破晓。",
+        "dedication": "⸺致敬摩尔 (Mohr)，以及每一位同路人。"
+      },
       "root": "根目录",
       "loading": "加载中…",
       "empty": "此目录为空",
