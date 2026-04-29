@@ -1,4 +1,4 @@
-import { FILE_UPLOAD_CONFIG } from '#shared/utils'
+import { FILE_UPLOAD_CONFIG, type FileWithStatus } from '~~/shared/utils/file'
 
 interface BlobResult {
   pathname: string
