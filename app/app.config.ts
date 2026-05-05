@@ -1,9 +1,16 @@
 export default defineAppConfig({
   global: {
     picture: {
-      dark: '/avatar.jpg',
-      light: '/avatar.jpg',
-      alt: 'My avatar'
+      home: {
+        dark: '/avatar.jpg',
+        light: '/avatar.jpg',
+        alt: 'My avatar'
+      },
+      about: {
+        dark: '/XiaoQiao.jpg',
+        light: '/XiaoQiao.jpg',
+        alt: 'XiaoQiao'
+      }
     },
     githubLink: 'https://github.com/Qhbee',
     steamLink: 'https://steamcommunity.com/profiles/76561199433361830/',

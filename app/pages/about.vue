@@ -38,9 +38,9 @@ useSeoMeta({
       <UColorModeAvatar
         size="profileLg"
         class="sm:rotate-4 ring ring-default ring-offset-3 ring-offset-(--ui-bg)"
-        :light="global.picture?.light!"
-        :dark="global.picture?.dark!"
-        :alt="global.picture?.alt!"
+        :light="global.picture?.about.light!"
+        :dark="global.picture?.about.dark!"
+        :alt="global.picture?.about.alt!"
       />
     </UPageHero>
     <UPageSection
