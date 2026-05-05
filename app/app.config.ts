@@ -11,6 +11,20 @@ export default defineAppConfig({
     available: true
   },
   ui: {
+    // Avatar：Nuxt UI 用正则取「第一个」`size-*` 来算 IPX 宽高；默认 md 会带 `size-8`，若排在 `size-18` 前会把 640 图压成 32×32。
+    // 用专用 size 变体，只保留一个 `size-*`，避免与默认 md 的 `size-8` 冲突。
+    avatar: {
+      variants: {
+        size: {
+          profile: {
+            root: 'size-18'
+          },
+          profileLg: {
+            root: 'size-36 rounded-lg'
+          }
+        }
+      }
+    },
     colors: {
       primary: 'blue',
       neutral: 'neutral'
