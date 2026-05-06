@@ -1,27 +1,27 @@
 title: 关于我
-description: Learn more about my journey as a Boston-based UX/UI Designer & Front-End Developer, my design philosophy, and my passion for crafting intuitive digital experiences.
+description: 了解全面的我，我的兴趣，我的工作，以及我的生活。
 content: |
-  你好, I'm **Emma Thompson**, a UX/UI Designer and Front-End Developer based right here in Boston. For the past six years, I've been immersed in the world of digital product creation, focusing on building experiences that are not just functional, but genuinely intuitive and engaging for users.
+  你好，我是 **Qhbee**。
 
-  My path started at **Boston University**, where I earned a degree in Interactive Design. It was there I discovered my dual passion for the visual language of design and the logical puzzle of code. Since then, I've honed my skills in both areas, believing that the best digital products are born from a deep understanding of both aesthetics and implementation.
+  ### 探索方向
 
-  ### My Design Philosophy
+  我的兴趣从小就很广泛，希望自己成为全才，对一切人类的知识都有贪婪的渴望。不管自然科学、工程技术，还是社会科学、人文艺术。
 
-  My design philosophy is rooted in **empathy** and **problem-solving**. I believe great design starts with understanding the 'why' – the user's needs, motivations, and pain points. I use research, iterative prototyping (often with tools like Figma), and user testing to ensure the solutions I build are truly effective.
+  但随着个人成长，最关注的点会不断转移，目前真正算擅长的是统计学和软件开发，未来还会不断探索其他方向。
 
-  I strive to create interfaces that feel effortless, where functionality and beauty work hand-in-hand. Whether I'm crafting pixel-perfect UIs or writing clean Vue.js/Nuxt.js code, my focus is always on creating value for the end-user.
+  ### 我的动力
 
-  ### What Drives Me
+  让我对工作保持热情的是学习新知识的满足、把复杂想法转化为简洁优雅方案的喜悦、最终动手让设计落地并知道它对别人有帮助的成就感。
 
-  What keeps me excited about this work is the constant learning and the challenge of translating complex ideas into simple, elegant solutions. There's nothing more rewarding than seeing a design come to life and knowing it's making someone's digital interaction easier or more enjoyable.
+  ### 工作之外
 
-  ### Beyond the Screen
+  不用上班的时候，我大概率宅在家里，放松方式一般是看电影、打游戏。但是目前更重要的是读书学习、追求真理，或者写自己的项目、为理想而奋斗！
 
-  When I'm not designing or coding, you might find me exploring Boston's latest coffee shops, hiking nearby trails, or occasionally contributing to open-source projects.
+  ###
 
-  Thanks for stopping by. Feel free to browse my [projects](/zh/projects) or [get in touch](/zh/#contact) if you'd like to collaborate!
+  感谢到访。欢迎浏览我的[项目](/zh/projects)，若有合作意向也可[联系我](/zh/#contact)！
 images:
-  - src: https://images.unsplash.com/photo-1744877478622-a78c7a3336f6?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-    alt: My coffee workspace
-  - src: https://images.unsplash.com/photo-1744429523595-2c06b8611242?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-    alt: My trip to Tokyo
+  - src: /images/about/Gintoki.jpg
+    alt: 喜欢的动漫角色
+  - src: /images/about/Lenin.jpg
+    alt: 崇敬的历史人物

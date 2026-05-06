@@ -30,32 +30,31 @@ hero:
 about:
   title: "About Me"
   description: |
-    As a UX/UI designer and front-end developer with 6 years of experience, I leverage my Boston University Interactive Design degree to craft user-centered digital experiences.
-    My approach blends creative strategy with technical expertise, transforming concepts into functional, purposeful digital products that seamlessly integrate design and technology.
+    Someone simple and complicated at the same time.
 experience:
-  title: Work Experience
+  title: Experience
   items:
-    - position: "Brand Designer at"
-      date: "2023 - Present"
+    - position: "Graduate studies & work in"
+      date: "2024 - Present"
       company:
-        name: Nuxt
-        logo: "i-simple-icons-nuxtdotjs"
-        url: "https://nuxt.com"
-        color: "#00DC82"
-    - position: "Assets Designer at"
-      date: "2022 - 2023"
+        name: Beijing
+        logo: "i-lucide-briefcase-business"
+        url: "https://en.wikipedia.org/wiki/Beijing"
+        color: "#DC2626"
+    - position: "Undergraduate studies in"
+      date: "2020 - 2024"
       company:
-        name: Raycast
-        logo: "i-simple-icons-raycast"
-        url: "https://raycast.com"
-        color: "#FF6363"
-    - position: "Senior UX/UI Designer at"
-      date: "2020 - 2021"
+        name: Hubei
+        logo: "i-lucide-school"
+        url: "https://en.wikipedia.org/wiki/Hubei"
+        color: "#2563EB"
+    - position: "Born and raised in"
+      date: "2002 - 2020"
       company:
-        name: Linear
-        logo: "i-simple-icons-linear"
-        url: "https://linear.app"
-        color: "#5E6AD2"
+        name: Henan
+        logo: "i-lucide-map-pin-house"
+        url: "https://en.wikipedia.org/wiki/Henan"
+        color: "#CA8A04"
 testimonials:
   - quote: "Qhbee is very kind, smart and handsome."
     author:
@@ -83,27 +82,34 @@ blog:
   description: "Some of my recent thoughts"
 faq:
   title: Frequently Asked Questions
-  description: Answers to common questions about my process and services.
+  description: Brief notes about this site, services and collaboration, and my personal habits.
   categories:
-    - title: Services & Process
+    - title: About This Website
+      questions:
+        - label: What is this site for?
+          content: |
+            A personal space focused chiefly on blog essays that also serves as a project showcase.
+        - label: Privacy & Data
+          content: |
+            Most pages are static browsing content. Personally Identifiable Information (PII) is not collected from visitors unless strictly required for specific module features (e.g., account services).
+            Data is processed only within the scope necessary for functional implementation and security maintenance. I personally commit to not privately accessing or repurposing any data, nor will I sell, disclose, or provide it to any third party.
+    - title: Services, Pricing & Timelines
       questions:
         - label: What services do you offer?
           content: |
-            I specialize in UX/UI design and front-end development. This includes user research, wireframing, interactive prototyping, creating intuitive user interfaces, building responsive websites and web applications (especially with Vue.js/Nuxt.js), and developing design systems. My goal is to create seamless digital experiences from concept to deployment.
-        - label: What is your design process like?
+            I specialize in Full-stack web development, AI application development, statistical modeling and deep-learning algorithms.
+        - label: What is your work process like?
           content: |
             My process is collaborative and iterative, typically involving stages like Discovery & Research, Ideation & Prototyping, User Testing, Visual Design, and close collaboration with development teams during implementation. I tailor the process based on project needs, always focusing on user-centered solutions.
         - label: Do you work with startups?
           content: |
-            Absolutely! I enjoy working with startups to help shape their product vision and create user-friendly interfaces from the ground up. I can adapt my process to fit the fast-paced startup environment.
-    - title: Pricing & Timelines
-      questions:
+            Absolutely! I enjoy working with startups pro bono in my spare time, provided the project is genuinely meaningful and aligns with my interests.
         - label: How much does a project typically cost?
           content: |
-            Project costs vary based on scope, complexity, features, and timeline. For comprehensive UX/UI design and front-end development projects, my engagements typically start around $5,000, with average projects ranging between $8,000 and $25,000. For consulting or specific design tasks, my day rate is $700.
+            Project costs vary based on scope, complexity, features, and timeline. For full development engagements, my engagements typically start around ¥5,000 RMB; with average projects ranging between ¥8,000 and ¥25,000. For consulting or specific design tasks, my day rate is ¥700.
         - label: What are your payment terms?
           content: |
-            I generally require a 40% deposit to schedule the project and begin work, with the remaining 60% due upon successful project completion and delivery. I accept payments via bank transfer and Stripe.
+            I generally require a 40% deposit to schedule the project and begin work, with the remaining 60% due upon successful project completion and delivery. I accept WeChat Pay and Alipay.
         - label: How long does a typical project take?
           content: |
             Timelines depend heavily on the project's scope and complexity. Smaller projects might take 3-4 weeks, while larger, more involved projects can range from 2 to 4 months. I always provide a detailed timeline estimate after the initial discovery phase.
@@ -117,4 +123,7 @@ faq:
             I love the challenge of solving complex problems through design and technology. It's incredibly rewarding to see people interact with something I've created and find it genuinely useful and easy to navigate. Bridging the gap between user needs and technical possibilities is what truly excites me.
         - label: What are your hobbies outside of work?
           content: |
-            When I'm not designing or coding, I enjoy exploring Boston's neighborhoods, trying out new coffee shops, and hiking in the nearby reservations. I'm also passionate about photography and occasionally contribute to open-source projects.
+            When I'm not designing or coding, I mostly stay home — books, films and games. I'm also passionate about music and occasionally contribute to open-source projects
+        - label: What technical directions might you explore next?
+          content: |
+            Quantitative finance, red team of cybersecurity, 3D, game dev, desktop and mobile apps, Web3, and deeper work on OS, databases, and middleware.
