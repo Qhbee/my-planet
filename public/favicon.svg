@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!--
+    火星 favicon（32×32 逻辑坐标）
+    层次从下往上：底色 → 斑纹 → 向阳增亮 → 背阳变暗 → 边缘薄光
+  -->
+  <defs>
+    <!-- 整颗星球的可视范围：圆盘以外全部裁掉 -->
+    <clipPath id="disc">
+      <circle cx="16" cy="16" r="15"/>
+    </clipPath>
+
+    <!--
+      「夜晚 / 背光」: 径向渐变，但圆心在圆盘左下方很远处 (1.6, 30.4)、半径很大。
+      这样在圆盘上看，暗部从一侧柔和扫过，像球体被太阳照亮——不是同心圆套色。
+      multiply 叠上去只压暗、不改色相；stop-opacity 控制昏影带从浓到淡。
+    -->
+    <radialGradient id="smooth-shadow" cx="1.6" cy="30.4" r="32" gradientUnits="userSpaceOnUse">
+      <stop offset="10%" stop-color="#0a0202" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#0a0202" stop-opacity="0.85"/>
+      <stop offset="55%" stop-color="#0a0202" stop-opacity="0.65"/>
+      <stop offset="65%" stop-color="#0a0202" stop-opacity="0.40"/>
+      <stop offset="75%" stop-color="#0a0202" stop-opacity="0.05"/>
+      <stop offset="80%" stop-color="#0a0202" stop-opacity="0"/>
+    </radialGradient>
+
+    <!--
+      「向阳高光」：相对整颗圆的包围盒定位 (objectBoundingBox)，亮斑在右上 (86%, 14%)。
+      screen 混合 = 提亮、略带去灰，适合模拟日照。
+    -->
+    <radialGradient id="sun-glow" cx="86%" cy="14%" r="70%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#fff0ea" stop-opacity="0.65"/>
+      <stop offset="25%" stop-color="#ffd4c8" stop-opacity="0.25"/>
+      <stop offset="70%" stop-color="#ffd4c8" stop-opacity="0"/>
+    </radialGradient>
+
+    <!--
+      「边缘薄光 / 薄暮」：圆心与星球相同、r=15，只在靠外缘很窄一圈 (约 96.5%～100%) 上色。
+      看起来像淡淡的大气色散或晨昏线附近的亮边；默认混合模式（正常）叠在最上。
+    -->
+    <radialGradient id="atmos-limb" cx="16" cy="16" r="15" gradientUnits="userSpaceOnUse">
+      <stop offset="96.5%" stop-color="#ffb9a2" stop-opacity="0"/>
+      <stop offset="99%" stop-color="#ffb9a2" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ffb9a2" stop-opacity="0.15"/>
+    </radialGradient>
+  </defs>
+
+  <g clip-path="url(#disc)">
+    <!-- 基色：锈红火星本体 -->
+    <circle cx="16" cy="16" r="15" fill="#a54a42"/>
+
+    <!-- 褐色椭圆斑 = 地形/尘斑；旋转与透明度略有变化，避免死板 -->
+    <g>
+      <ellipse cx="10" cy="05" rx="4.5" ry="2.8" fill="#6f4336" opacity="0.95" transform="rotate(-18 11 12)"/>
+      <ellipse cx="20" cy="19" rx="3.8" ry="2.2" fill="#5f382e" opacity="0.9" transform="rotate(22 20 19)"/>
+      <ellipse cx="15" cy="25" rx="2.0" ry="2.0" fill="#7f5346" opacity="0.75"/>
+      <ellipse cx="22" cy="10" rx="2.2" ry="1.4" fill="#734a3f" opacity="0.85"/>
+      <ellipse cx="07" cy="14" rx="1.3" ry="2.0" fill="#4a2c24" opacity="0.8"/>
+    </g>
+
+    <!-- 大圆铺满圆盘，只让 sun-glow 渐变在向阳一侧起作用 -->
+    <circle cx="16" cy="16" r="15" fill="url(#sun-glow)" style="mix-blend-mode:screen"/>
+
+    <!-- 同上，smooth-shadow 的阴影渐变跨整个盘，multiply 做背光区域 -->
+    <circle cx="16" cy="16" r="15" fill="url(#smooth-shadow)" style="mix-blend-mode:multiply"/>
+
+    <!-- 最外层：一圈很细的暖色边缘光 -->
+    <circle cx="16" cy="16" r="15" fill="url(#atmos-limb)"/>
+  </g>
+</svg>
