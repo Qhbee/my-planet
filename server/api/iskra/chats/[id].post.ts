@@ -1,3 +1,4 @@
+import { createOpenAI } from '@ai-sdk/openai'
 import { convertToModelMessages, createUIMessageStream, createUIMessageStreamResponse, generateText, smoothStream, stepCountIs, streamText } from 'ai'
 import { z } from 'zod'
 // import { db, schema } from '../../../utils/db'
@@ -12,6 +13,21 @@ defineRouteMeta({
     tags: ['ai']
   }
 })
+
+/** 会话标题生成：同时设置 API_KEY、BASE_URL、MODEL 时用 OpenAI 兼容接口，否则仍走 AI Gateway。 */
+function resolveTitleGenerationModel() {
+  const apiKey = process.env.API_KEY?.trim()
+  const baseURL = process.env.BASE_URL?.trim()
+  const modelId = process.env.MODEL?.trim()
+  if (apiKey && baseURL && modelId) {
+    // @ai-sdk/openai v3：`provider(modelId)` 走 Responses API（/v1/responses）；多数第三方只实现 Chat Completions。
+    // Responses API（POST …/v1/responses）
+    // return createOpenAI({ apiKey, baseURL })(modelId)
+    // Chat Completions API（POST …/v1/chat/completions）
+    return createOpenAI({ apiKey, baseURL }).chat(modelId)
+  }
+  return 'openai/gpt-4o-mini'
+}
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
@@ -40,7 +56,7 @@ export default defineEventHandler(async (event) => {
 
   if (!chat.title) {
     const { text: title } = await generateText({
-      model: 'openai/gpt-4o-mini',
+      model: resolveTitleGenerationModel(),
       system: `You are a title generator for a chat:
           - Generate a short title based on the first user's message
           - The title should be less than 30 characters long
