@@ -99,9 +99,12 @@ defineShortcuts({
       <template #header="{ collapsed }">
         <NuxtLink
           :to="localePath(iskraBase)"
-          class="flex items-end gap-0.5"
+          class="flex items-center gap-2"
         >
-          <IskraLogo class="h-8 w-auto shrink-0" />
+          <UIcon
+            name="i-lucide-flame"
+            class="size-8 shrink-0 text-primary"
+          />
           <span
             v-if="!collapsed"
             class="text-xl font-bold text-highlighted"
