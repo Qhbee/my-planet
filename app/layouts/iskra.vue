@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import '~/assets/css/iskra.css'
-import { useChats } from '~/composables/projects/iskra/useChats'
+import type { Chat } from '~~/shared/types/db'
+import { useChats, type UIChat } from '~/composables/projects/iskra/useChats'
 import { LazyIskraModalConfirm } from '#components'
 
 const route = useRoute()
@@ -20,19 +21,23 @@ const deleteModal = overlay.create(LazyIskraModalConfirm, {
 
 const iskraBase = '/projects/iskra'
 
-const { data: chats, refresh: refreshChats } = await useFetch<Chat[]>('/api/iskra/chats', {
-  key: 'iskra-chats',
-  transform: data => data.map(chat => ({
+const { data: rawChats, refresh: refreshChats } = await useFetch<Chat[]>('/api/iskra/chats', {
+  key: 'iskra-chats'
+})
+
+/** API 仍为 Chat[]；侧边栏条目单独 computed，避免 useFetch transform 必须与原类型相同的约束 */
+const chatNavItems = computed((): UIChat[] =>
+  (rawChats.value ?? []).map(chat => ({
     id: chat.id,
     label: chat.title || 'Untitled',
     to: localePath(`${iskraBase}/chat/${chat.id}`),
     icon: 'i-lucide-message-circle',
     createdAt: chat.createdAt
   }))
-})
+)
 
 onNuxtReady(async () => {
-  const first10 = (chats.value || []).slice(0, 10)
+  const first10 = (chatNavItems.value || []).slice(0, 10)
   for (const chat of first10) {
     await $fetch(`/api/iskra/chats/${chat.id}`)
   }
@@ -43,7 +48,7 @@ watch(loggedIn, async () => {
   open.value = false
 })
 
-const { groups } = useChats(chats)
+const { groups } = useChats(chatNavItems)
 
 const items = computed(() => groups.value?.flatMap((group) => {
   return [{

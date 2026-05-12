@@ -4,7 +4,10 @@ export interface UIChat {
   id: string
   label: string
   icon: string
-  createdAt: string
+  /** 服务端 Drizzle `Date` 与 JSON 反序列化的 ISO 字符串均可能出现 */
+  createdAt: string | Date
+  /** 侧边栏导航链接（分组排序仍只用 createdAt） */
+  to?: string
 }
 
 export function useChats(chats: Ref<UIChat[] | undefined>) {
