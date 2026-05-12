@@ -24,11 +24,6 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  // projects 下各 app 共用的本地库 SQLite 文件路径（与 cwd 无关）；线上可用 NUXT_SQLITE_PATH 覆盖。
-  runtimeConfig: {
-    sqlitePath: join(rootDir, '.data', 'apps.sqlite')
-  },
-
   alias: {
     // Server 内稳定引用 db，避免 Nitro 打包时相对路径解析失败
     '#db': join(rootDir, 'server/utils/db')
@@ -42,7 +37,7 @@ export default defineNuxtConfig({
     // 默认是 node-server，这里明确说明改用 Bun 服务端（OAuth /api、Drive、Iskra 等），减少歧义。
     // 在部分构建失败场景下 .output/nitro.json 会停留在 prerender 阶段，导致 `nuxt preview` 变成 `npx serve ./public` 纯静态，登录路由全部失效。
     // preset: 'node-server',
-    // Bun 运行时 + bun:sqlite；构建未完成时勿用 preview（否则会停在 prerender / 静态 serve）。
+    // Bun 运行时 + Drizzle + pg；数据库连接仅进程环境变量，见 .env.example。
     preset: 'bun',
     alias: {
       '#db': join(rootDir, 'server/utils/db')
