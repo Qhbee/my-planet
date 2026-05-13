@@ -26,7 +26,7 @@ function resolveTitleGenerationModel() {
     // Chat Completions API（POST …/v1/chat/completions）
     return createOpenAI({ apiKey, baseURL }).chat(modelId)
   }
-  return 'openai/gpt-4o-mini'
+  return 'xiaomi/mimo-v2.5'
 }
 
 export default defineEventHandler(async (event) => {
