@@ -60,32 +60,36 @@ async function onSubmit() {
 
 const quickChats = [
   {
-    label: 'Why use Nuxt UI?',
-    icon: 'i-logos-nuxt-icon'
+    label: '从早期经济学手稿，到雇佣劳动与资本，再到政治经济学批判和资本论，马克思对商品、货币、资本的分析有过什么变化吗？',
+    icon: 'icon-park:commodity'
   },
   {
-    label: 'Help me create a Vue composable',
-    icon: 'i-logos-vue'
+    label: '巴黎公社中有哪些错误被马克思所批评？',
+    icon: 'entypo:flag'
   },
   {
-    label: 'Tell me more about UnJS',
-    icon: 'i-logos-unjs'
+    label: '马克思和恩格斯借钱的书信，按时间顺序总结。',
+    icon: 'noto:fire'
   },
   {
-    label: 'Why should I consider VueUse?',
-    icon: 'i-logos-vueuse'
+    label: '列宁谈论过中国革命吗？',
+    icon: 'emojione:star'
   },
   {
-    label: 'Tailwind CSS best practices',
-    icon: 'i-logos-tailwindcss-icon'
+    label: '二月革命到十月革命期间，列宁的主张有变化吗？',
+    icon: 'mdi:hammer-sickle'
   },
   {
-    label: 'What is the weather in Bordeaux?',
-    icon: 'i-lucide-sun'
+    label: '斯大林有关于二战的演讲吗？',
+    icon: 'circle-flags:soviet-union'
   },
   {
-    label: 'Show me a chart of sales data',
-    icon: 'i-lucide-line-chart'
+    label: '毛泽东选集里的哲学相关的篇目有哪些？',
+    icon: 'twemoji:closed-book'
+  },
+  {
+    label: '建国后毛泽东多次接见美国作家记者斯诺，说了什么？',
+    icon: 'twemoji:flag-china'
   }
 ]
 </script>
