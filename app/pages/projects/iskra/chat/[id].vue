@@ -3,6 +3,7 @@ import type { DefineComponent } from 'vue'
 import { Chat } from '@ai-sdk/vue'
 import { DefaultChatTransport } from 'ai'
 import type { UIMessage } from 'ai'
+import { z } from 'zod'
 import { useClipboard } from '@vueuse/core'
 import { getTextFromMessage } from '@nuxt/ui/utils/ai'
 import { useModels } from '~/composables/projects/iskra/useModels'
@@ -10,6 +11,33 @@ import { IskraProsePreStream } from '#components'
 import { useFileUploadWithStatus } from '~/composables/projects/iskra/useFileUpload'
 
 definePageMeta({ layout: 'iskra' })
+
+const chatTitleDataSchema = z.object({
+  message: z.string()
+})
+
+const ragSourceItemSchema = z.object({
+  rel_path: z.string().nullish(),
+  title: z.string().nullish(),
+  book: z.string().nullish(),
+  chunk_index: z.number().nullish(),
+  chunk_id: z.number().nullish(),
+  score: z.number().nullish(),
+  snippet: z.string().optional()
+})
+
+const ragSourcesDataSchema = z.object({
+  sources: z.array(ragSourceItemSchema)
+})
+
+type IskraChatMessage = UIMessage<unknown, {
+  'chat-title': z.infer<typeof chatTitleDataSchema>
+  'rag-sources': z.infer<typeof ragSourcesDataSchema>
+}>
+
+type IskraMessagePart = IskraChatMessage['parts'][number]
+
+type RagSourcesPart = Extract<IskraMessagePart, { type: 'data-rag-sources' }>
 
 const components = {
   pre: IskraProsePreStream as unknown as DefineComponent
@@ -56,10 +84,14 @@ useSeoMeta({
 
 const input = ref('')
 
-const chat = new Chat({
+const chat = new Chat<IskraChatMessage>({
   id: data.value.id,
-  messages: data.value.messages,
-  transport: new DefaultChatTransport({
+  dataPartSchemas: {
+    'chat-title': chatTitleDataSchema,
+    'rag-sources': ragSourcesDataSchema
+  },
+  messages: data.value.messages as IskraChatMessage[],
+  transport: new DefaultChatTransport<IskraChatMessage>({
     api: `/api/iskra/chats/${data.value.id}`,
     body: {
       model: model.value
@@ -139,7 +171,7 @@ onMounted(() => {
         >
           <template #content="{ message }">
             <template
-              v-for="(part, index) in message.parts"
+              v-for="(part, index) in (message as IskraChatMessage).parts"
               :key="`${message.id}-${part.type}-${index}${'state' in part ? `-${part.state}` : ''}`"
             >
               <IskraReasoning
@@ -155,6 +187,10 @@ onMounted(() => {
                 :components="components"
                 :parser-options="{ highlight: false }"
                 class="*:first:mt-0 *:last:mb-0"
+              />
+              <IskraRagSourcesPanel
+                v-else-if="part.type === 'data-rag-sources'"
+                :sources="(part as RagSourcesPart).data.sources"
               />
               <!-- User messages are rendered as plain text (safely escaped by Vue) -->
               <p

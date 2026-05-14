@@ -15,6 +15,14 @@ import { z } from 'zod'
 import { db, schema } from '#db'
 import { and, eq } from 'drizzle-orm'
 
+/** 多轮时勿把 RAG 引用块送进 ``convertToModelMessages``，避免撑爆上下文。 */
+function stripRagSourcesDataParts(messages: UIMessage[]): UIMessage[] {
+  return messages.map(m => ({
+    ...m,
+    parts: m.parts.filter(p => p.type !== 'data-rag-sources')
+  }))
+}
+
 defineRouteMeta({
   openAPI: {
     description: 'Chat with AI.',
@@ -95,49 +103,6 @@ function modelMessagesToRagQueryRequest(
   }
 }
 
-function escapeDetailsSummary(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-}
-
-function oneLinePreview(text: string, max: number): string {
-  const t = text.replace(/\s+/g, ' ').trim()
-  if (t.length <= max) return escapeDetailsSummary(t)
-  return `${escapeDetailsSummary(t.slice(0, max))}…`
-}
-
-function stripMarkdownFootnoteDefinitions(text: string): string {
-  return text
-    .split('\n')
-    .filter(line => !/^\[\^[^\]]+\]:/.test(line.trimStart()))
-    .join('\n')
-    .trim()
-}
-
-/** 将检索来源拼成 Markdown，附在正文后由 `MDCCached` 渲染。外层 `<details>` 折叠整组，内层每条再折叠，summary 仅一行预览。 */
-function formatRagSourcesMarkdown(sources: RagSourceItem[]): string {
-  if (!sources?.length) return ''
-  const blocks = sources.map((s, i) => {
-    const head = s.title?.trim() || s.rel_path?.trim() || `来源 ${i + 1}`
-    const previewSource = [head, s.rel_path?.trim()].filter(Boolean).join(' · ')
-    const summaryText = `${i + 1}. ${oneLinePreview(previewSource, 100)}`
-
-    const meta: string[] = []
-    if (s.rel_path) meta.push(`路径: \`${s.rel_path}\``)
-    if (s.book) meta.push(`书目: ${s.book}`)
-    if (s.chunk_index != null) meta.push(`chunk #${s.chunk_index}`)
-    if (s.score != null && Number.isFinite(s.score)) meta.push(`score ${s.score.toFixed(4)}`)
-    const metaLine = meta.length ? `\n*${meta.join(' · ')}*` : ''
-    const snip = stripMarkdownFootnoteDefinitions((s.snippet ?? '').trim())
-    const quote = snip ? `\n\n${snip.split('\n').map(line => '> ' + line).join('\n')}` : ''
-    const detailMarkdown = ('**' + (i + 1) + '. ' + head + '**\n\n' + metaLine + quote).trim()
-    return `<details>\n<summary>${summaryText}</summary>\n\n${detailMarkdown}\n\n</details>`
-  })
-  return `\n\n---\n\n<details>\n<summary>参考来源（${sources.length} 条）</summary>\n\n${blocks.join('\n\n')}\n\n</details>`
-}
-
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
 
@@ -206,21 +171,21 @@ export default defineEventHandler(async (event) => {
 - Break down complex topics into digestible parts
 - Maintain a friendly, professional tone` */
 
-      const modelMessages: ModelMessage[] = await convertToModelMessages(messages)
+      const modelMessages: ModelMessage[] = await convertToModelMessages(stripRagSourcesDataParts(messages))
 
       const queryReq = modelMessagesToRagQueryRequest(modelMessages, model)
 
       const origin = resolveIskraEngineOrigin()
-      let response: string
+      let answer: string
+      let sources: RagSourceItem[]
       try {
         const queryResp = await $fetch<RagQueryResponse>(`${origin}/rag/query`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: queryReq
         })
-        const answer = (queryResp.answer ?? '').trim()
-        const sources = formatRagSourcesMarkdown(queryResp.sources ?? [])
-        response = answer + sources
+        answer = (queryResp.answer ?? '').trim()
+        sources = queryResp.sources ?? []
       } catch (e) {
         console.error('[iskra] POST /rag/query failed', e)
         throw createError({ statusCode: 502, statusMessage: 'Sorry, Iskra engine query failed' })
@@ -237,8 +202,11 @@ export default defineEventHandler(async (event) => {
       const textPartId = generateId()
       const chunks: UIMessageChunk[] = [
         { type: 'text-start', id: textPartId },
-        { type: 'text-delta', id: textPartId, delta: response },
+        { type: 'text-delta', id: textPartId, delta: answer },
         { type: 'text-end', id: textPartId },
+        ...(sources.length > 0
+          ? [{ type: 'data-rag-sources' as const, id: textPartId, data: { sources } }]
+          : []),
         { type: 'finish', finishReason: 'stop' }
       ]
 
