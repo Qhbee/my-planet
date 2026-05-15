@@ -10,6 +10,7 @@ useSeoMeta({
 })
 
 const localePath = useLocalePath()
+const toast = useToast()
 
 const input = ref('')
 const loading = ref(false)
@@ -28,7 +29,12 @@ const {
   clearFiles
 } = useFileUploadWithStatus(chatId)
 
-async function createChat(prompt: string) {
+/** @returns 是否已发起并成功完成创建与跳转（用于避免连点时误 clearFiles） */
+async function createChat(prompt: string): Promise<boolean> {
+  if (!prompt.trim() || loading.value || isUploading.value) {
+    return false
+  }
+
   input.value = prompt
   loading.value = true
 
@@ -38,24 +44,37 @@ async function createChat(prompt: string) {
     parts.push(...uploadedFiles.value)
   }
 
-  const chat = await $fetch('/api/iskra/chats', {
-    method: 'POST',
-    body: {
-      id: chatId,
-      message: {
-        role: 'user',
-        parts
+  try {
+    const chat = await $fetch('/api/iskra/chats', {
+      method: 'POST',
+      body: {
+        id: chatId,
+        message: {
+          role: 'user',
+          parts
+        }
       }
-    }
-  })
+    })
 
-  await refreshNuxtData('iskra-chats')
-  await navigateTo(localePath(`/projects/iskra/chat/${chat?.id}`))
+    await refreshNuxtData('iskra-chats')
+    await navigateTo(localePath(`/projects/iskra/chat/${chat?.id}`))
+    return true
+  } catch {
+    toast.add({
+      description: t('projects.iskra.createChatError'),
+      color: 'error',
+      icon: 'i-lucide-alert-circle'
+    })
+    return false
+  } finally {
+    loading.value = false
+  }
 }
 
 async function onSubmit() {
-  await createChat(input.value)
-  clearFiles()
+  if (await createChat(input.value)) {
+    clearFiles()
+  }
 }
 
 const quickChats = [
@@ -116,7 +135,7 @@ const quickChats = [
         <UChatPrompt
           v-model="input"
           :status="loading ? 'streaming' : 'ready'"
-          :disabled="isUploading"
+          :disabled="isUploading || loading"
           class="[view-transition-name:chat-prompt]"
           variant="subtle"
           :ui="{ base: 'px-1.5' }"
@@ -150,7 +169,7 @@ const quickChats = [
             <UChatPromptSubmit
               color="neutral"
               size="sm"
-              :disabled="isUploading"
+              :disabled="isUploading || loading"
             />
           </template>
         </UChatPrompt>
@@ -165,6 +184,7 @@ const quickChats = [
             color="neutral"
             variant="outline"
             class="rounded-full"
+            :disabled="isUploading || loading"
             @click="createChat(quickChat.label)"
           />
         </div>

@@ -82,7 +82,8 @@
     },
     "iskra": {
       "seoTitle": "Iskra",
-      "placeholder": "Marxism expert agent, placeholder page; subsequent connection to chat UI and API."
+      "placeholder": "Marxism expert agent, placeholder page; subsequent connection to chat UI and API.",
+      "createChatError": "Could not create the chat. Please try again."
     },
     "drive": {
       "seoTitle": "Maulwurf Vault",

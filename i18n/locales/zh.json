@@ -82,7 +82,8 @@
     },
     "iskra": {
       "seoTitle": "伊斯克拉",
-      "placeholder": "马克思主义专家 agent，占位页；后续接入聊天 UI 与 API。"
+      "placeholder": "马克思主义专家 agent，占位页；后续接入聊天 UI 与 API。",
+      "createChatError": "无法创建对话，请稍后重试。"
     },
     "drive": {
       "seoTitle": "老鼹鼠地库",
