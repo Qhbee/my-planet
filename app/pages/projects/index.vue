@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { isBetaGatedAppSlug } from '~~/shared/utils/beta-gate-routes'
 
 // -------------------------
 // Types & constants
@@ -250,8 +251,15 @@ useSeoMeta({
                     </a>
                   </template>
 
-                  <h3 class="font-semibold text-lg">
-                    {{ project.title }}
+                  <h3 class="font-semibold text-lg flex items-center gap-2 flex-wrap">
+                    <span>{{ project.title }}</span>
+                    <UBadge
+                      v-if="isBetaGatedAppSlug(project.slug)"
+                      color="warning"
+                      variant="subtle"
+                    >
+                      {{ t('projects.beta.badge') }}
+                    </UBadge>
                   </h3>
                   <p class="text-muted mt-1 text-sm">
                     {{ project.description }}

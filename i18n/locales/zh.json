@@ -41,6 +41,17 @@
       "experiments": "实验",
       "other": "其他"
     },
+    "beta": {
+      "seoTitle": "内测访问",
+      "title": "内测中",
+      "description": "当前应用在内测阶段，请输入邀请码后继续。",
+      "codeLabel": "邀请码",
+      "codePlaceholder": "请输入邀请码",
+      "submit": "解锁",
+      "unlockErrorTitle": "解锁失败",
+      "unlockErrorDesc": "邀请码不正确，请检查后重试。",
+      "badge": "内测"
+    },
     "common": {
       "copy": "复制",
       "input": "输入",

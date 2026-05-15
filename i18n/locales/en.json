@@ -41,6 +41,17 @@
       "experiments": "Experiments",
       "other": "Other"
     },
+    "beta": {
+      "seoTitle": "Beta access",
+      "title": "Private beta",
+      "description": "This app is in closed beta. Enter the invite code to continue.",
+      "codeLabel": "Invite code",
+      "codePlaceholder": "Enter invite code",
+      "submit": "Unlock",
+      "unlockErrorTitle": "Unlock failed",
+      "unlockErrorDesc": "Please check the invite code and try again.",
+      "badge": "Beta"
+    },
     "common": {
       "copy": "Copy",
       "input": "Input",

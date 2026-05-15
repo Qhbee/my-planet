@@ -12,6 +12,11 @@ declare module '#auth-utils' {
     /** 该提供商下的用户唯一 id（如 GitHub 的 user.id），DB 存的是 text */
     providerId: string
   }
+
+  interface UserSession {
+    /** 输入正确内测码后由服务端写入（与 sealed session 一并加密）；已 GitHub 登录用户同样需要，与 `user` 合并存储 */
+    betaAppsUnlocked?: boolean
+  }
 }
 
 export {}
