@@ -138,8 +138,16 @@ function copy(_e: MouseEvent, message: UIMessage) {
   }, 2000)
 }
 
+// 仅当首页创建后写入的 sessionStorage 存在时触发首答；先 removeItem 再 regenerate，避免带标记刷新或异常时重复打接口。
+// key 须与 `iskra/index.vue` createChat 内 setItem 一致。
 onMounted(() => {
-  if (data.value?.messages.length === 1) {
+  if (!import.meta.client) return
+  const key = `iskra:bootstrap-assistant-initial-reply:chat-id:${route.params.id as string}`
+  if (!sessionStorage.getItem(key)) return
+  sessionStorage.removeItem(key)
+  const msgs = data.value?.messages
+  // 首答 bootstrap 针对的是「首条是用户提问、还没有 assistant」这一状态
+  if (msgs?.length === 1 && msgs[0]?.role === 'user') {
     chat.regenerate()
   }
 })

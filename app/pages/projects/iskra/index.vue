@@ -57,6 +57,12 @@ async function createChat(prompt: string): Promise<boolean> {
     })
 
     await refreshNuxtData('iskra-chats')
+    // 首页已把首条 user 写入库，对话页不会走 sendMessage；用 sessionStorage 标记「刚创建后进页」，
+    // 对话页 onMounted 读 key 后触发一次 regenerate 拉首答。不用 URL 参数；无 key 时（侧边栏进旧会话）不自动请求，避免重复 assistant。
+    // key 须与 `chat/[id].vue` 一致。
+    if (import.meta.client) {
+      sessionStorage.setItem(`iskra:bootstrap-assistant-initial-reply:chat-id:${chat.id}`, 'true')
+    }
     await navigateTo(localePath(`/projects/iskra/chat/${chat?.id}`))
     return true
   } catch {
