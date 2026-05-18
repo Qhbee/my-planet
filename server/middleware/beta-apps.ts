@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     return
   }
 
-  const path = (event.path || '').split('?')[0]
+  const path = ((event.path || '').split('?')[0]) ?? ''
 
   if (!isBetaGatedApiPath(path)) {
     return
