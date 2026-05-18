@@ -25,16 +25,6 @@ const blogNavigation = computed(() => navigation.value.find(item => item.path ==
 
 const breadcrumb = computed(() => mapContentNavigation(findPageBreadcrumb(blogNavigation?.value, page.value?.path)).map(({ icon, ...link }) => link))
 
-if (page.value.image) {
-  defineOgImage({ url: page.value.image })
-} else {
-  defineOgImageComponent('Blog', {
-    headline: breadcrumb.value.map(item => item.label).join(' > ')
-  }, {
-    fonts: ['Geist:400', 'Geist:600']
-  })
-}
-
 const title = page.value?.seo?.title || page.value?.title
 const description = page.value?.seo?.description || page.value?.description
 
@@ -44,6 +34,18 @@ useSeoMeta({
   ogDescription: description,
   ogTitle: title
 })
+
+if (page.value.image) {
+  useSeoMeta({ ogImage: page.value.image })
+} else {
+  defineOgImage('Portfolio', {
+    title,
+    description,
+    headline: breadcrumb.value.map(item => item.label).join(' > ')
+  }, {
+    fonts: ['Geist:400', 'Geist:600']
+  })
+}
 
 const articleLink = computed(() => `${window?.location}`)
 
