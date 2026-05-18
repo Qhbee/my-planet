@@ -14,8 +14,7 @@ export default defineNuxtConfig({
     'nuxt-og-image',
     'motion-v/nuxt',
     '@nuxtjs/i18n',
-    'nuxt-auth-utils',
-    'nuxt-charts'
+    'nuxt-auth-utils'
   ],
 
   devtools: {

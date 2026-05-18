@@ -34,7 +34,6 @@
     "motion-v": "^1.7.3",
     "nuxt": "^4.4.5",
     "nuxt-auth-utils": "^0.5.26",
-    "nuxt-charts": "0.2.4",
     "nuxt-og-image": "^5.1.13",
     "pg": "^8.16.3",
     "shiki-stream": "^0.1.3",

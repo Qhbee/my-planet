@@ -207,14 +207,6 @@ onMounted(() => {
               >
                 {{ part.text }}
               </p>
-              <IskraToolWeather
-                v-else-if="part.type === 'tool-weather'"
-                :invocation="(part as WeatherUIToolInvocation)"
-              />
-              <IskraToolChart
-                v-else-if="part.type === 'tool-chart'"
-                :invocation="(part as ChartUIToolInvocation)"
-              />
               <IskraFileAvatar
                 v-else-if="part.type === 'file'"
                 :name="getFileName(part.url)"
