@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import type { ContentNavigationItem } from '@nuxt/content'
-import { mapContentNavigation } from '@nuxt/ui/utils/content'
-import { findPageBreadcrumb } from '@nuxt/content/utils'
 import { copyToClipboard } from '~/utils/clipboard'
 
 const route = useRoute()
@@ -20,11 +17,6 @@ const { data: surround } = await useAsyncData(
   })
 )
 
-const navigation = inject<Ref<ContentNavigationItem[]>>('navigation', ref([]))
-const blogNavigation = computed(() => navigation.value.find(item => item.path === '/blog')?.children || [])
-
-const breadcrumb = computed(() => mapContentNavigation(findPageBreadcrumb(blogNavigation?.value, page.value?.path)).map(({ icon, ...link }) => link))
-
 const title = page.value?.seo?.title || page.value?.title
 const description = page.value?.seo?.description || page.value?.description
 
@@ -32,20 +24,9 @@ useSeoMeta({
   title,
   description,
   ogDescription: description,
-  ogTitle: title
+  ogTitle: title,
+  ...(page.value.image ? { ogImage: page.value.image } : {})
 })
-
-if (page.value.image) {
-  useSeoMeta({ ogImage: page.value.image })
-} else {
-  defineOgImage('Portfolio', {
-    title,
-    description,
-    headline: breadcrumb.value.map(item => item.label).join(' > ')
-  }, {
-    fonts: ['Geist:400', 'Geist:600']
-  })
-}
 
 const articleLink = computed(() => `${window?.location}`)
 
