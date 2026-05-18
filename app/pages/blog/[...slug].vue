@@ -2,6 +2,7 @@
 import type { ContentNavigationItem } from '@nuxt/content'
 import { mapContentNavigation } from '@nuxt/ui/utils/content'
 import { findPageBreadcrumb } from '@nuxt/content/utils'
+import { copyToClipboard } from '~/utils/clipboard'
 
 const route = useRoute()
 const { t, locale } = useI18n()

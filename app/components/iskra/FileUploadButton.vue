@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { FILE_UPLOAD_CONFIG } from '~~/shared/utils/file'
+
 const { loggedIn } = useUserSession()
 
 const emit = defineEmits<{
