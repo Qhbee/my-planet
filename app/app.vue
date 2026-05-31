@@ -22,8 +22,8 @@ useHead({
 
 useSeoMeta({
   titleTemplate: `%s - Qhbee's Planet`,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/portfolio-light.png',
-  twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/portfolio-light.png',
+  ogImage: 'https://qhbee.red/portfolio-light.png',
+  twitterImage: 'https://qhbee.red/portfolio-light.png',
   twitterCard: 'summary_large_image'
 })
 
